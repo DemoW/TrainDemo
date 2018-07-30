@@ -26,10 +26,10 @@ public class HeavyActivity extends Activity {
 		resultTv = findViewById(R.id.response_tv);
 
 		MyTask myTask = new MyTask();
-		myTask.execute("121.35.211.41");
+		myTask.execute("223.74.197.184");
 	}
 
-	public class MyTask extends AsyncTask<String, Void, String> {
+	class MyTask extends AsyncTask<String, Void, String> {
 
 		@Override
 		protected String doInBackground(String... strings) {
@@ -43,16 +43,16 @@ public class HeavyActivity extends Activity {
 		}
 	}
 
-
 	private String netRequest(String requestParam){
 		HttpURLConnection httpURLConnection = null;
 		String response = "";
 		try {
+			// 223.74.197.184
 			String requestUrl = Constant.URL_STR + "?ip=" + requestParam;
 			URL url = new URL(requestUrl);
 			httpURLConnection = (HttpURLConnection) url.openConnection();
-			httpURLConnection.setConnectTimeout(3000);
-			httpURLConnection.setReadTimeout(3000);
+			httpURLConnection.setConnectTimeout(30000);
+			httpURLConnection.setReadTimeout(30000);
 			httpURLConnection.setDoInput(true);
 
 			int errorCode = httpURLConnection.getResponseCode();
