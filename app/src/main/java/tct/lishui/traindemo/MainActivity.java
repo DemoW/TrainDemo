@@ -1,33 +1,51 @@
 package tct.lishui.traindemo;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
+
+import tct.lishui.traindemo.adapter.BannerAdapter;
+import tct.lishui.traindemo.bean.Banner;
 import tct.lishui.traindemo.util.Constant;
 import tct.lishui.traindemo.util.NetManager;
 
 public class MainActivity extends AppCompatActivity
 		implements NavigationView.OnNavigationItemSelectedListener {
 
+	private RecyclerView recyclerView;
+	private List<Banner> bannerList = new ArrayList<>();
+	private BannerAdapter bannerAdapter;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		// initial the view
 		initView();
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				NetManager.testJson();
-			}
-		}).start();
+		initRecyclerView();
+		BannerDataTask bannerDataTask = new BannerDataTask(this);
+		bannerDataTask.execute();
+	}
+
+	private void initRecyclerView() {
+		LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+		layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+		recyclerView.setLayoutManager(layoutManager);
+		bannerAdapter = new BannerAdapter(this, bannerList);
+		recyclerView.setAdapter(bannerAdapter);
 	}
 
 	private void initView(){
@@ -42,8 +60,32 @@ public class MainActivity extends AppCompatActivity
 
 		NavigationView navigationView = findViewById(R.id.nav_view);
 		navigationView.setNavigationItemSelectedListener(this);
+
+		recyclerView = findViewById(R.id.recycler_view);
 	}
 
+	static class BannerDataTask extends AsyncTask<Void, Void, Object>{
+
+		private WeakReference<MainActivity> mainActivityWeakReference = null;
+		public BannerDataTask(MainActivity mainActivity){
+			mainActivityWeakReference = new WeakReference<>(mainActivity);
+		}
+
+		@Override
+		protected Object doInBackground(Void... voids) {
+			return NetManager.requestBanner();
+		}
+
+		@Override
+		protected void onPostExecute(Object o) {
+			super.onPostExecute(o);
+			if (mainActivityWeakReference != null && mainActivityWeakReference.get() != null){
+				mainActivityWeakReference.get().bannerAdapter.clearBanner();
+				mainActivityWeakReference.get().bannerAdapter.setDataSet((List<Banner>) o);
+				mainActivityWeakReference.get().bannerAdapter.notifyDataSetChanged();
+			}
+		}
+	}
 	@Override
 	public void onBackPressed() {
 		DrawerLayout drawer = findViewById(R.id.drawer_layout);

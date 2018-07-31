@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,33 +16,29 @@ import java.net.URL;
 import java.util.List;
 
 import tct.lishui.traindemo.bean.Banner;
-import tct.lishui.traindemo.bean.HotWord;
 import tct.lishui.traindemo.bean.Result;
 
 /**
  * Created by lishui.lin on 18-7-30 09:31
  */
 public class NetManager {
-
-	public static String testJson(){
+	public static List<Banner> requestBanner(){
 		HttpURLConnection httpURLConnection = null;
-		String response = "";
+        List<Banner> banners = null;
 		try {
 			URL url = new URL(Constant.BANNER_URL_STR);
 			httpURLConnection = (HttpURLConnection) url.openConnection();
-			httpURLConnection.setConnectTimeout(30000);
-			httpURLConnection.setReadTimeout(30000);
+			httpURLConnection.setConnectTimeout(5000);
+			httpURLConnection.setReadTimeout(5000);
 			httpURLConnection.setDoInput(true);
 
 			int errorCode = httpURLConnection.getResponseCode();
 			if (errorCode == HttpURLConnection.HTTP_OK){
 				String jsonStr = convertStreamToString(httpURLConnection.getInputStream());
 				Gson gson = new Gson();
-
 				Type bannerType = new TypeToken<Result<List<Banner>>>() {}.getType();
 				Result<List<Banner>> bannerResultObject = gson.fromJson(jsonStr, bannerType);
-				List<Banner> bannerList = bannerResultObject.getData();
-				Log.d("water", "---" + bannerList.toString());
+                banners = bannerResultObject.getData();
 			}
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -52,9 +47,10 @@ public class NetManager {
 		}finally {
 			httpURLConnection.disconnect();
 		}
-		return response;
+		return banners;
 	}
 	public static String netRequest(String requestParam){
+
 		HttpURLConnection httpURLConnection = null;
 		String response = "";
 		try {
