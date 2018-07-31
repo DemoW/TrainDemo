@@ -22,16 +22,11 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest {
 
-	private String json = "{\"data\":[{\"id\":6,\"link\":\"\",\"name\":\"面试\",\"order\":1,\"visible\":1},{\"id\":9,\"link\":\"\",\"name\":\"Studio3\",\"order\":1,\"visible\":1},{\"id\":5,\"link\":\"\",\"name\":\"动画\",\"order\":2,\"visible\":1},{\"id\":1,\"link\":\"\",\"name\":\"自定义View\",\"order\":3,\"visible\":1},{\"id\":2,\"link\":\"\",\"name\":\"性能优化 速度\",\"order\":4,\"visible\":1},{\"id\":3,\"link\":\"\",\"name\":\"gradle\",\"order\":5,\"visible\":1},{\"id\":4,\"link\":\"\",\"name\":\"Camera 相机\",\"order\":6,\"visible\":1},{\"id\":7,\"link\":\"\",\"name\":\"代码混淆 安全\",\"order\":7,\"visible\":1},{\"id\":8,\"link\":\"\",\"name\":\"逆向 加固\",\"order\":8,\"visible\":1}],\"errorCode\":0,\"errorMsg\":\"\"}";
 	@Test
 	public void addition_isCorrect() {
 		assertEquals(4, 2 + 2);
 	}
 
-	@Test
-	public void testHotWordByNet(){
-		NetManager.testJson();
-	}
 	@Test
 	public void testHotWord(){
 		HotWord hotWord = new HotWord();
@@ -62,7 +57,7 @@ public class ExampleUnitTest {
 		System.out.println("testHotWord convertJson----" + convertJson);
 
 		Type hotwordType = new TypeToken<Result<List<HotWord>>>() {}.getType();
-		Result<List<HotWord>> hotWordResultObject = gson.fromJson(json, hotwordType);
+		Result<List<HotWord>> hotWordResultObject = gson.fromJson(convertJson, hotwordType);
 		List<HotWord> hotWordList = hotWordResultObject.getData();
 
 		System.out.println("testHotWord convertObject----" + hotWordList.get(0).toString());
