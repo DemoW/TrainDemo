@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import tct.lishui.traindemo.util.Constant;
+import tct.lishui.traindemo.util.NetManager;
 
 public class MainActivity extends AppCompatActivity
 		implements NavigationView.OnNavigationItemSelectedListener {
@@ -21,6 +22,12 @@ public class MainActivity extends AppCompatActivity
 		setContentView(R.layout.activity_main);
 		// initial the view
 		initView();
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				NetManager.testJson();
+			}
+		}).start();
 	}
 
 	private void initView(){

@@ -28,7 +28,7 @@ public class HeavyActivity extends Activity {
 		resultTv = findViewById(R.id.response_tv);
 
 		MyTask myTask = new MyTask(this);
-		myTask.execute("157.122.116.172");
+		myTask.execute("223.74.197.184");
 	}
 
 	static class MyTask extends AsyncTask<String, Void, String> {

@@ -22,13 +22,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AppTimeUpActivity"></activity>
+        <activity android:name=".AppTimeUpActivity"/>
 
         <provider
             android:name=".MyProvider"
             android:authorities="tct.lishui.myprovider" />
 
-        <activity android:name=".HeavyActivity"></activity>
+        <activity android:name=".HeavyActivity"/>
     </application>
 
 </manifest>
