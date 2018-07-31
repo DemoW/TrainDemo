@@ -11,9 +11,6 @@ public class Constant {
 	// taobao ip lib
 	public static final String URL_STR = "http://ip.taobao.com/service/getIpInfo.php";
 
-	// wan android
-	public static final String WAN_ANDROID_URL_STR = "http://www.wanandroid.com//hotkey/json";
-
 	// banner link
 	public static final String BANNER_URL_STR = "http://www.wanandroid.com/banner/json";
 

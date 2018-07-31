@@ -12,9 +12,9 @@ android {
     }
     buildTypes {
         debug {
-            minifyEnabled true  // 压缩、混淆、优化Java代码
-            shrinkResources true  //移除未使用的资源
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            minifyEnabled true  // 压缩、混淆、优化Java代码
+//            shrinkResources true  //移除未使用的资源
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         release {
             minifyEnabled true

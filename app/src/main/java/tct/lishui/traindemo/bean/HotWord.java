@@ -4,17 +4,17 @@ public class HotWord {
     public HotWord() {
     }
 
-    private Integer id;
+    private int id;
     private String link;
     private String name;
-    private Integer order;
-    private Integer visible;
+    private int order;
+    private int visible;
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -34,19 +34,19 @@ public class HotWord {
         this.name = name;
     }
 
-    public Integer getOrder() {
+    public int getOrder() {
         return order;
     }
 
-    public void setOrder(Integer order) {
+    public void setOrder(int order) {
         this.order = order;
     }
 
-    public Integer getVisible() {
+    public int getVisible() {
         return visible;
     }
 
-    public void setVisible(Integer visible) {
+    public void setVisible(int visible) {
         this.visible = visible;
     }
 

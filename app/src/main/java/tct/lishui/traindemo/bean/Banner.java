@@ -6,6 +6,12 @@ public class Banner {
     public Banner() {
     }
 
+    public Banner(List<Data> data, int errorCode, String errorMsg) {
+        this.data = data;
+        this.errorCode = errorCode;
+        this.errorMsg = errorMsg;
+    }
+
     private List<Data> data;
     private int errorCode;
     private String errorMsg;

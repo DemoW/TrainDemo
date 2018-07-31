@@ -4,6 +4,17 @@ public class Data {
     public Data() {
     }
 
+    public Data(String desc, int id, String imagePath, int isVisible, int order, String title, int type, String url) {
+        this.desc = desc;
+        this.id = id;
+        this.imagePath = imagePath;
+        this.isVisible = isVisible;
+        this.order = order;
+        this.title = title;
+        this.type = type;
+        this.url = url;
+    }
+
     private String desc;
     private int id;
     private String imagePath;
