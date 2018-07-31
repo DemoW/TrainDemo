@@ -1,5 +1,8 @@
 package tct.lishui.traindemo.util;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -22,6 +25,7 @@ import tct.lishui.traindemo.bean.Result;
  * Created by lishui.lin on 18-7-30 09:31
  */
 public class NetManager {
+
 	public static List<Banner> requestBanner(){
 		HttpURLConnection httpURLConnection = null;
         List<Banner> banners = null;
@@ -88,6 +92,26 @@ public class NetManager {
 		bufferedReader.close();
 		String response = sb.toString();
 		return response;
+	}
+
+	/**
+	 * 判断是否有网络连接
+	 *
+	 * @param context
+	 * @return
+	 */
+	public static boolean isNetworkConnected(Context context) {
+		if (context != null) {
+			// 获取手机所有连接管理对象(包括对wi-fi,net等连接的管理)
+			ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context
+					.CONNECTIVITY_SERVICE);
+			// 获取NetworkInfo对象
+			NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+			//判断NetworkInfo对象是否为空
+			if (networkInfo != null)
+				return networkInfo.isAvailable();
+		}
+		return false;
 	}
 
 }

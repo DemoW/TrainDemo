@@ -1,8 +1,13 @@
 package tct.lishui.traindemo;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -11,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 
@@ -29,6 +35,26 @@ public class MainActivity extends AppCompatActivity
 	private RecyclerView recyclerView;
 	private List<Banner> bannerList = new ArrayList<>();
 	private BannerAdapter bannerAdapter;
+	private boolean isReceiverDo = false;
+	private boolean isInitialBad = false;
+	private boolean isInitialGood = false;
+
+	private BroadcastReceiver networkReceiver = new BroadcastReceiver() {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String action = intent.getAction();
+			if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action)) {
+				if (NetManager.isNetworkConnected(context)) {
+					if (isReceiverDo) {
+						Log.d("water", "-----NetworkConnected");
+						BannerDataTask bannerDataTask = new BannerDataTask(MainActivity.this);
+						bannerDataTask.execute();
+					}
+				}
+			}
+		}
+	};
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -36,8 +62,20 @@ public class MainActivity extends AppCompatActivity
 		// initial the view
 		initView();
 		initRecyclerView();
-		BannerDataTask bannerDataTask = new BannerDataTask(this);
-		bannerDataTask.execute();
+		lazyToDo();
+
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		registerNetworkListener();
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		unregisterNetworkListener();
 	}
 
 	private void initRecyclerView() {
@@ -64,6 +102,27 @@ public class MainActivity extends AppCompatActivity
 		recyclerView = findViewById(R.id.recycler_view);
 	}
 
+
+	private void lazyToDo() {
+		getWindow().getDecorView().postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				BannerDataTask bannerDataTask = new BannerDataTask(MainActivity.this);
+				bannerDataTask.execute();
+			}
+		}, 500);
+	}
+
+	private void registerNetworkListener(){
+		IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+		registerReceiver(networkReceiver, intentFilter);
+	}
+
+	private void unregisterNetworkListener(){
+		if (networkReceiver != null){
+			unregisterReceiver(networkReceiver);
+		}
+	}
 	static class BannerDataTask extends AsyncTask<Void, Void, Object>{
 
 		private WeakReference<MainActivity> mainActivityWeakReference = null;
@@ -80,9 +139,30 @@ public class MainActivity extends AppCompatActivity
 		protected void onPostExecute(Object o) {
 			super.onPostExecute(o);
 			if (mainActivityWeakReference != null && mainActivityWeakReference.get() != null){
-				mainActivityWeakReference.get().bannerAdapter.clearBanner();
-				mainActivityWeakReference.get().bannerAdapter.setDataSet((List<Banner>) o);
-				mainActivityWeakReference.get().bannerAdapter.notifyDataSetChanged();
+				if (o == null) {
+					if (!mainActivityWeakReference.get().isInitialBad) {
+						// 初始化Banner数据，无网络也能显示
+						Banner tempBanner = new Banner();
+						tempBanner.setTitle("别着急，再等等啦~");
+						tempBanner.setUrl("");
+						tempBanner.setImagePath("");
+						mainActivityWeakReference.get().bannerAdapter.clearBanner();
+						mainActivityWeakReference.get().bannerList.add(tempBanner);
+						mainActivityWeakReference.get().bannerAdapter.notifyDataSetChanged();
+
+						mainActivityWeakReference.get().isInitialBad = true;
+						mainActivityWeakReference.get().isReceiverDo = true;
+					}
+				}else {
+					if (!mainActivityWeakReference.get().isInitialGood) {
+						mainActivityWeakReference.get().bannerAdapter.clearBanner();
+						mainActivityWeakReference.get().bannerAdapter.setDataSet((List<Banner>) o);
+						mainActivityWeakReference.get().bannerAdapter.notifyDataSetChanged();
+
+						mainActivityWeakReference.get().isInitialGood = true;
+						mainActivityWeakReference.get().isReceiverDo = false;
+					}
+				}
 			}
 		}
 	}

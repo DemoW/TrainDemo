@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -50,17 +51,25 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.BannerView
         Banner banner = bannerList.get(i);
         if (banner != null){
             bannerViewHolder.textView.setText(banner.getTitle());
-            Glide.with(mContext).load(banner.getImagePath()).into(bannerViewHolder.imageView);
+            if (banner.getImagePath().isEmpty()){
+                Glide.with(mContext).load(R.drawable.ic_main_load).into(bannerViewHolder.imageView);
+            }else {
+                Glide.with(mContext).load(banner.getImagePath()).into(bannerViewHolder.imageView);
+            }
             bannerViewHolder.itemView.setTag(banner.getUrl());
             bannerViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent();
-                    intent.setAction(Intent.ACTION_VIEW);
-                    Uri uri = Uri.parse((String) view.getTag());
-                    intent.setData(uri);
-                    mContext.startActivity(intent);
-
+                    String urlStr = (String) view.getTag();
+                    if (!urlStr.isEmpty()) {
+                        Intent intent = new Intent();
+                        intent.setAction(Intent.ACTION_VIEW);
+                        Uri uri = Uri.parse(urlStr);
+                        intent.setData(uri);
+                        mContext.startActivity(intent);
+                    } else {
+                        Toast.makeText(mContext, "等待数据刷新中...", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }
