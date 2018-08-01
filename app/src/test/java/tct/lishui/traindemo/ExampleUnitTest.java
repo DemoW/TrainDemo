@@ -11,7 +11,6 @@ import java.util.List;
 
 import tct.lishui.traindemo.bean.HotWord;
 import tct.lishui.traindemo.bean.Result;
-import tct.lishui.traindemo.util.NetManager;
 
 import static org.junit.Assert.*;
 

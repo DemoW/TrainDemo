@@ -1,8 +1,6 @@
 package tct.lishui.traindemo;
 
 import android.app.Application;
-import android.os.Debug;
-import android.os.Trace;
 import android.util.Log;
 
 /**

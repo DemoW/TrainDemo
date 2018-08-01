@@ -3,7 +3,6 @@ package tct.lishui.traindemo.util;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -25,6 +24,7 @@ import tct.lishui.traindemo.bean.Result;
  * Created by lishui.lin on 18-7-30 09:31
  */
 public class NetManager {
+	private static final String TAG = "PT/NetManager";
 
 	public static List<Banner> requestBanner(){
 		HttpURLConnection httpURLConnection = null;

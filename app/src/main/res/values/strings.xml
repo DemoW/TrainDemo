@@ -5,4 +5,12 @@
     <string name="nav_header_title">Performance Train</string>
     <string name="nav_header_subtitle">lishui.lin@tcl.com</string>
     <string name="nav_header_desc">Navigation header</string>
+
+    <string name="alcatel_content_str">\t TCL通讯发布旗下阿尔卡特（Alcatel）品牌最新款Alcatel 5V智能手机。作为TCL通讯全新设计的智能手机系列的旗舰机型，Alcatel 5V拥有令人惊艳的全面屏，兼具高端性能和实惠的价格。Alcatel 5V采用高端美学设计，优化的FullView 19:9全面屏和使用人工智能（AI）的增强版摄像头，可随时拍摄高品质照片。全面集成谷歌图像识别应用Google Lens，方便用户在不同情境进行识别搜索，提高效率并增强互动。
+        \n\n\t Alcatel 5V机身曲线优美，风格时尚，既美观又方便实用。它拥有令人惊艳的凹口无边框设计和 2.5D Dragontrail™玻璃材质一体成型的高端曲面机身，并采用光学真空镀膜（OPVM）涂层高闪光的无缝外壳。
+        \n\n\t Alcatel 5V搭载1200万像素和200万像素的双后置摄像头，支持高级景深效果，提供最佳拍照体验。完美的触摸对焦和自带的艺术虚化功能，可实现出色的焦外散景拍摄。1.25微米的主镜头单位像素及夜拍模式，确保Alcatel 5V在低光线条件下也可拍摄出色彩鲜艳，细节清晰的照片。Alcatel 5V还配有非常适合自拍的800万像素前置摄像头，轻松实现全方位自拍。
+        \n\n\t 谷歌图像识别应用Google Lens与Alcatel 5V的相机使用界面完美集成，用户可通过摄像头和谷歌智能语音助手（Google Assistant）轻松访问这一功能，便捷识别与搜索内容，加快操作进程, 让使用者与身旁的事物实时互动。举例来说，用户只需把手机对着某个物体拍照就可在线查找相关产品信息，也可复制和粘贴文本保存与记录资料，将摄像头指向一个地标或建筑物，就可自动识别获取有关地标的更多信息，还能在日历中添加活动纪要，识别搜索电影海报与受欢迎的动植物等。
+        \n\n\t Alcatel 5V从7月开始在特定市场以199.99美元起的零售价销售。如欲了解更多有关TCL通讯旗下阿尔卡特品牌最新智能手机备的信息，敬请访问该网址： www.alcatelmobile.com
+    </string>
+    <string name="alcatel_5v_title">美通社:TCL通讯发布阿尔卡特旗舰Alcatel 5V，突破性能与性价比</string>>
 </resources>

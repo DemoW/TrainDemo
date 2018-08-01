@@ -1,4 +1,4 @@
-package tct.lishui.traindemo;
+package activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,12 +17,14 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
+import android.view.View;
+import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import tct.lishui.traindemo.R;
 import tct.lishui.traindemo.adapter.BannerAdapter;
 import tct.lishui.traindemo.bean.Banner;
 import tct.lishui.traindemo.util.Constant;
@@ -32,6 +33,8 @@ import tct.lishui.traindemo.util.NetManager;
 public class MainActivity extends AppCompatActivity
 		implements NavigationView.OnNavigationItemSelectedListener {
 
+	private static final String TAG = "PT/MainActivity";
+	private TextView loading_tv;
 	private RecyclerView recyclerView;
 	private List<Banner> bannerList = new ArrayList<>();
 	private BannerAdapter bannerAdapter;
@@ -46,7 +49,7 @@ public class MainActivity extends AppCompatActivity
 			if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action)) {
 				if (NetManager.isNetworkConnected(context)) {
 					if (isReceiverDo) {
-						Log.d("water", "-----NetworkConnected");
+						Log.d(TAG, "-----NetworkConnected");
 						BannerDataTask bannerDataTask = new BannerDataTask(MainActivity.this);
 						bannerDataTask.execute();
 					}
@@ -100,6 +103,7 @@ public class MainActivity extends AppCompatActivity
 		navigationView.setNavigationItemSelectedListener(this);
 
 		recyclerView = findViewById(R.id.recycler_view);
+		loading_tv = findViewById(R.id.loading_text);
 	}
 
 
@@ -152,6 +156,8 @@ public class MainActivity extends AppCompatActivity
 
 						mainActivityWeakReference.get().isInitialBad = true;
 						mainActivityWeakReference.get().isReceiverDo = true;
+						mainActivityWeakReference.get().loading_tv.setVisibility(View.GONE);
+
 					}
 				}else {
 					if (!mainActivityWeakReference.get().isInitialGood) {
@@ -161,6 +167,7 @@ public class MainActivity extends AppCompatActivity
 
 						mainActivityWeakReference.get().isInitialGood = true;
 						mainActivityWeakReference.get().isReceiverDo = false;
+						mainActivityWeakReference.get().loading_tv.setVisibility(View.GONE);
 					}
 				}
 			}

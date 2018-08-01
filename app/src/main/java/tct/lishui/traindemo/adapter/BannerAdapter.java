@@ -4,11 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +19,6 @@ import java.util.List;
 
 import tct.lishui.traindemo.R;
 import tct.lishui.traindemo.bean.Banner;
-import tct.lishui.traindemo.util.Constant;
 
 public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.BannerViewHolder> {
     private final Context mContext;
@@ -89,8 +85,8 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.BannerView
         public BannerViewHolder(@NonNull View itemView) {
             super(itemView);
             cardView = (CardView) itemView;
-            imageView = (ImageView)cardView.findViewById(R.id.banner_image);
-            textView = (TextView)cardView.findViewById(R.id.banner_name);
+            imageView = cardView.findViewById(R.id.banner_image);
+            textView = cardView.findViewById(R.id.banner_name);
         }
     }
 }

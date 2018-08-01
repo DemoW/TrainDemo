@@ -1,21 +1,13 @@
-package tct.lishui.traindemo;
+package activity;
 
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.List;
 
-import tct.lishui.traindemo.util.Constant;
+import tct.lishui.traindemo.R;
 import tct.lishui.traindemo.util.NetManager;
 
 public class HeavyActivity extends Activity {

@@ -1,35 +1,52 @@
-package tct.lishui.traindemo;
+package activity;
 
-import android.content.ContentResolver;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.Debug;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
-import java.net.URL;
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
+import tct.lishui.traindemo.R;
 import tct.lishui.traindemo.util.Constant;
 
 public class AppTimeUpActivity extends AppCompatActivity {
 
 	private static final String TAG = "PT/AppTimeUpActivity";
 	private boolean isBadStartWay = false;
+	private ImageView imageView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_start_time);
+		setContentView(R.layout.activity_start_way);
+		initView();
 		isBadStartWay = getIntent().getBooleanExtra(Constant.START_TIME_FLAG, false);
 		if (isBadStartWay){
+			imageView.setImageResource(R.drawable.alcatel_5v);
 			oneExcessiveWork();
+		}else {
+//			Glide.with(this).load(R.drawable.alcatel_5v).into(imageView);
+			lazyToDo();
 		}
-//		lazyToDo();
+	}
 
+	private void initView() {
+		imageView = findViewById(R.id.toolbar_bg);
+		Toolbar toolbar = findViewById(R.id.toolbar);
+		//点击箭头返回
+		toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				finish();
+			}
+		});
 	}
 
 	private void lazyToDo(){
@@ -37,6 +54,7 @@ public class AppTimeUpActivity extends AppCompatActivity {
 			@Override
 			public void run() {
 				Log.d(TAG, "lazyToDo thread 1 name: " + Thread.currentThread().getName());
+				Glide.with(AppTimeUpActivity.this).load(R.drawable.alcatel_5v).into(imageView);
 				// 此处不推荐直接匿名线程，只是写例子使用
 				new Thread(){
 					@Override
