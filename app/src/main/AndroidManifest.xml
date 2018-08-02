@@ -11,10 +11,9 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:supportsRtl="true">
         <activity
-            android:name="activity.MainActivity"
+            android:name="tct.lishui.traindemo.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -23,14 +22,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="activity.AppTimeUpActivity"
+
+        <activity android:name="tct.lishui.traindemo.activity.AppTimeUpActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity android:name="tct.lishui.traindemo.activity.RenderActivity"
+            android:theme="@style/AppTheme"/>
 
         <provider
             android:name=".MyProvider"
             android:authorities="tct.lishui.myprovider" />
 
-        <activity android:name="activity.HeavyActivity"/>
     </application>
 
 </manifest>

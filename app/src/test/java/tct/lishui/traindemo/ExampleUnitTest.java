@@ -3,14 +3,24 @@ package tct.lishui.traindemo;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import tct.lishui.traindemo.bean.HotWord;
 import tct.lishui.traindemo.bean.Result;
+import tct.lishui.traindemo.bean.TopMovieResult;
+import tct.lishui.traindemo.bean.TopMovieSubject;
+import tct.lishui.traindemo.util.Constant;
 
 import static org.junit.Assert.*;
 
@@ -21,9 +31,42 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest {
 
+	private OkHttpClient client = new OkHttpClient();
 	@Test
 	public void addition_isCorrect() {
 		assertEquals(4, 2 + 2);
+	}
+
+	@Test
+	public void testOkHttp(){
+		String response = getDouBanMovieTop(Constant.DOUBAN_MOVIE_TOP250,"240","11",true);
+		Gson gson = new Gson();
+		Type resultType = new TypeToken<TopMovieResult<List<TopMovieSubject>>>() {}.getType();
+		TopMovieResult<List<TopMovieSubject>> listTopMovieResult = gson.fromJson(response, resultType);
+		List<TopMovieSubject> topMovieSubjects = listTopMovieResult.getSubjects();
+		System.out.println("response: "+topMovieSubjects.toString());
+	}
+
+	String getDouBanMovieTop(String url, String start, String count, boolean isAdd){
+		String urlStr = url;
+		if (isAdd){
+			urlStr = urlStr + "?start=" + start + "&count=" + count;
+		}
+
+		Request request = new Request.Builder()
+				.url(urlStr)
+				.build();
+
+		System.out.println("request: " + request.toString());
+		String result = "";
+		try {
+			Response response = client.newCall(request).execute();
+			result = response.body().string();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return result;
 	}
 
 	@Test

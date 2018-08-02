@@ -45,7 +45,6 @@
             android:padding="5dp"
             android:textSize="18sp"
             android:text="@string/alcatel_5v_title"/>
-
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.widget.NestedScrollView

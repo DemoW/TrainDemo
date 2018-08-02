@@ -3,6 +3,7 @@ package tct.lishui.traindemo.util;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -17,8 +18,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import tct.lishui.traindemo.bean.Banner;
 import tct.lishui.traindemo.bean.Result;
+import tct.lishui.traindemo.bean.TopMovieResult;
+import tct.lishui.traindemo.bean.TopMovieSubject;
 
 /**
  * Created by lishui.lin on 18-7-30 09:31
@@ -112,6 +118,34 @@ public class NetManager {
 				return networkInfo.isAvailable();
 		}
 		return false;
+	}
+
+	public static List<TopMovieSubject> getDouBanMovieTop(String url, String start, String count, boolean isAdd){
+		OkHttpClient client = new OkHttpClient();
+		List<TopMovieSubject> topMovieSubjects = null;
+		String urlStr = url;
+		if (isAdd){
+			urlStr = urlStr + "?start=" + start + "&count=" + count;
+		}
+
+		Request request = new Request.Builder()
+				.url(urlStr)
+				.build();
+
+		System.out.println("request: " + request.toString());
+		String result = "";
+		try {
+			Response response = client.newCall(request).execute();
+			result = response.body().string();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		Gson gson = new Gson();
+		Type resultType = new TypeToken<TopMovieResult<List<TopMovieSubject>>>() {}.getType();
+		TopMovieResult<List<TopMovieSubject>> listTopMovieResult = gson.fromJson(result, resultType);
+		topMovieSubjects = listTopMovieResult.getSubjects();
+		return topMovieSubjects;
 	}
 
 }

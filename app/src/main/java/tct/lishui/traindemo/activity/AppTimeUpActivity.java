@@ -1,4 +1,4 @@
-package activity;
+package tct.lishui.traindemo.activity;
 
 
 import android.support.v7.app.AppCompatActivity;

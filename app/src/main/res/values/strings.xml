@@ -6,6 +6,12 @@
     <string name="nav_header_subtitle">lishui.lin@tcl.com</string>
     <string name="nav_header_desc">Navigation header</string>
 
+    <string name="movie_title">电影名称： </string>
+    <string name="movie_original_title">本地名称： </string>
+    <string name="movie_type">电影类型： </string>
+    <string name="movie_average">电影评分： </string>
+    <string name="movie_year">上映年份： </string>
+
     <string name="alcatel_content_str">\t TCL通讯发布旗下阿尔卡特（Alcatel）品牌最新款Alcatel 5V智能手机。作为TCL通讯全新设计的智能手机系列的旗舰机型，Alcatel 5V拥有令人惊艳的全面屏，兼具高端性能和实惠的价格。Alcatel 5V采用高端美学设计，优化的FullView 19:9全面屏和使用人工智能（AI）的增强版摄像头，可随时拍摄高品质照片。全面集成谷歌图像识别应用Google Lens，方便用户在不同情境进行识别搜索，提高效率并增强互动。
         \n\n\t Alcatel 5V机身曲线优美，风格时尚，既美观又方便实用。它拥有令人惊艳的凹口无边框设计和 2.5D Dragontrail™玻璃材质一体成型的高端曲面机身，并采用光学真空镀膜（OPVM）涂层高闪光的无缝外壳。
         \n\n\t Alcatel 5V搭载1200万像素和200万像素的双后置摄像头，支持高级景深效果，提供最佳拍照体验。完美的触摸对焦和自带的艺术虚化功能，可实现出色的焦外散景拍摄。1.25微米的主镜头单位像素及夜拍模式，确保Alcatel 5V在低光线条件下也可拍摄出色彩鲜艳，细节清晰的照片。Alcatel 5V还配有非常适合自拍的800万像素前置摄像头，轻松实现全方位自拍。

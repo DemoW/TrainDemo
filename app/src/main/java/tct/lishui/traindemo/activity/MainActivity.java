@@ -1,4 +1,4 @@
-package activity;
+package tct.lishui.traindemo.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -16,9 +16,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -30,8 +32,7 @@ import tct.lishui.traindemo.bean.Banner;
 import tct.lishui.traindemo.util.Constant;
 import tct.lishui.traindemo.util.NetManager;
 
-public class MainActivity extends AppCompatActivity
-		implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
 	private static final String TAG = "PT/MainActivity";
 	private TextView loading_tv;
@@ -81,6 +82,37 @@ public class MainActivity extends AppCompatActivity
 		unregisterNetworkListener();
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main_menu,menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int itemId = item.getItemId();
+		if (itemId == R.id.start_quick_time) {
+
+			Intent intent = new Intent(this, AppTimeUpActivity.class);
+			intent.putExtra(Constant.START_TIME_FLAG, false);
+			startActivity(intent);
+
+		} else if (itemId == R.id.slow_start_time) {
+
+			Intent intent = new Intent(this, AppTimeUpActivity.class);
+			intent.putExtra(Constant.START_TIME_FLAG, true);
+			startActivity(intent);
+
+		} else if (itemId == R.id.launch_heavy_aty) {
+
+			Intent intent = new Intent(this, RenderActivity.class);
+			startActivity(intent);
+		} else if (itemId == R.id.launch_light_aty) {
+
+		}
+		return true;
+	}
+
 	private void initRecyclerView() {
 		LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 		layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -92,15 +124,6 @@ public class MainActivity extends AppCompatActivity
 	private void initView(){
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
-
-		DrawerLayout drawer = findViewById(R.id.drawer_layout);
-		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-				this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-		drawer.addDrawerListener(toggle);
-		toggle.syncState();
-
-		NavigationView navigationView = findViewById(R.id.nav_view);
-		navigationView.setNavigationItemSelectedListener(this);
 
 		recyclerView = findViewById(R.id.recycler_view);
 		loading_tv = findViewById(R.id.loading_text);
@@ -173,48 +196,5 @@ public class MainActivity extends AppCompatActivity
 			}
 		}
 	}
-	@Override
-	public void onBackPressed() {
-		DrawerLayout drawer = findViewById(R.id.drawer_layout);
-		if (drawer.isDrawerOpen(GravityCompat.START)) {
-			drawer.closeDrawer(GravityCompat.START);
-		} else {
-			super.onBackPressed();
-		}
-	}
 
-	@SuppressWarnings("StatementWithEmptyBody")
-	@Override
-	public boolean onNavigationItemSelected(MenuItem item) {
-		// Handle navigation view item clicks here.
-		int id = item.getItemId();
-
-		if (id == R.id.start_quick_time) {
-
-			Intent intent = new Intent(this, AppTimeUpActivity.class);
-			intent.putExtra(Constant.START_TIME_FLAG, false);
-			startActivity(intent);
-
-		} else if (id == R.id.slow_start_time) {
-
-			Intent intent = new Intent(this, AppTimeUpActivity.class);
-			intent.putExtra(Constant.START_TIME_FLAG, true);
-			startActivity(intent);
-
-		} else if (id == R.id.launch_heavy_aty) {
-
-			Intent intent = new Intent(this, HeavyActivity.class);
-			startActivity(intent);
-		} else if (id == R.id.launch_light_aty) {
-
-		} else if (id == R.id.nav_share) {
-
-		} else if (id == R.id.nav_send) {
-
-		}
-
-		DrawerLayout drawer = findViewById(R.id.drawer_layout);
-		drawer.closeDrawer(GravityCompat.START);
-		return true;
-	}
 }
