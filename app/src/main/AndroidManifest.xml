@@ -24,7 +24,7 @@
         </activity>
 
         <activity android:name="tct.lishui.traindemo.activity.AppTimeUpActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.StatusBar"/>
 
         <activity android:name="tct.lishui.traindemo.activity.RenderActivity"
             android:theme="@style/AppTheme"/>

@@ -136,15 +136,23 @@ public class NetManager {
 		String result = "";
 		try {
 			Response response = client.newCall(request).execute();
-			result = response.body().string();
+			if (response.isSuccessful()) {
+				result = response.body().string();
+			}else {
+				result = "";
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
-		Gson gson = new Gson();
-		Type resultType = new TypeToken<TopMovieResult<List<TopMovieSubject>>>() {}.getType();
-		TopMovieResult<List<TopMovieSubject>> listTopMovieResult = gson.fromJson(result, resultType);
-		topMovieSubjects = listTopMovieResult.getSubjects();
+		if (!result.isEmpty()){
+			Gson gson = new Gson();
+			Type resultType = new TypeToken<TopMovieResult<List<TopMovieSubject>>>() {
+			}.getType();
+			TopMovieResult<List<TopMovieSubject>> listTopMovieResult = gson.fromJson(result, resultType);
+			topMovieSubjects = listTopMovieResult.getSubjects();
+		}
+
 		return topMovieSubjects;
 	}
 

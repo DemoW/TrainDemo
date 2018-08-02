@@ -8,6 +8,9 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +27,8 @@ public class RenderActivity extends Activity implements SwipeToLoadHelper.LoadMo
 
 	private static final String TAG = "PT/RenderActivity";
 	private RecyclerView recyclerView;
+	private ProgressBar progressBar;
+	private TextView failTextView;
 	private WrapperAdapter wrapperAdapter;
 	private SwipeToLoadHelper swipeToLoadHelper;
 	MovieAdapter movieAdapter;
@@ -62,11 +67,19 @@ public class RenderActivity extends Activity implements SwipeToLoadHelper.LoadMo
 				topMovieSubjectList = (List<TopMovieSubject>) o;
 				movieAdapter.setMovies(topMovieSubjectList);
 				movieAdapter.notifyDataSetChanged();
+				progressBar.setVisibility(View.GONE);
+				failTextView.setVisibility(View.GONE);
+			} else {
+				progressBar.setVisibility(View.GONE);
+				failTextView.setVisibility(View.VISIBLE);
+
 			}
 		}
 	}
 
 	private void initView() {
+		progressBar = findViewById(R.id.loading_pb);
+		failTextView = findViewById(R.id.fail_tv);
 		recyclerView = findViewById(R.id.recycler_view);
 		LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
 		linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

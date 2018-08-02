@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/start_quick_time"
-        android:icon="@drawable/ic_sentiment_satisfied_black_24dp"
+        android:icon="@drawable/ic_sentiment_satisfied_white_24dp"
         app:showAsAction="ifRoom"
         android:title="Start Quick Time"/>
 
     <item android:id="@+id/slow_start_time"
-        android:icon="@drawable/ic_sentiment_dissatisfied_black_24dp"
+        android:icon="@drawable/ic_sentiment_dissatisfied_white_24dp"
         app:showAsAction="ifRoom"
         android:title="Start Slow Time"/>
 
