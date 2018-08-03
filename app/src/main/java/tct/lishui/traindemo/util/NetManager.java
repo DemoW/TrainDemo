@@ -33,71 +33,31 @@ public class NetManager {
 	private static final String TAG = "PT/NetManager";
 
 	public static List<Banner> requestBanner(){
-		HttpURLConnection httpURLConnection = null;
-        List<Banner> banners = null;
-		try {
-			URL url = new URL(Constant.BANNER_URL_STR);
-			httpURLConnection = (HttpURLConnection) url.openConnection();
-			httpURLConnection.setConnectTimeout(5000);
-			httpURLConnection.setReadTimeout(5000);
-			httpURLConnection.setDoInput(true);
+		OkHttpClient okHttpClient = new OkHttpClient();
+		Request request = new Request.Builder()
+				.url(Constant.BANNER_URL_STR)
+				.build();
 
-			int errorCode = httpURLConnection.getResponseCode();
-			if (errorCode == HttpURLConnection.HTTP_OK){
-				String jsonStr = convertStreamToString(httpURLConnection.getInputStream());
-				Gson gson = new Gson();
-				Type bannerType = new TypeToken<Result<List<Banner>>>() {}.getType();
-				Result<List<Banner>> bannerResultObject = gson.fromJson(jsonStr, bannerType);
-                banners = bannerResultObject.getData();
+		String result = "";
+		try {
+			Response response = okHttpClient.newCall(request).execute();
+			if (response.isSuccessful()) {
+				result = response.body().string();
+			}else {
+				result = "";
 			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}finally {
-			httpURLConnection.disconnect();
 		}
+		List<Banner> banners = null;
+		if (!result.isEmpty()){
+			Gson gson = new Gson();
+			Type bannerType = new TypeToken<Result<List<Banner>>>() {}.getType();
+			Result<List<Banner>> bannerResultObject = gson.fromJson(result, bannerType);
+			banners = bannerResultObject.getData();
+		}
+
 		return banners;
-	}
-	public static String netRequest(String requestParam){
-
-		HttpURLConnection httpURLConnection = null;
-		String response = "";
-		try {
-			// 223.74.197.184
-//			String requestUrl = Constant.URL_STR + "?ip=" + requestParam;
-			String requestUrl = Constant.HOT_WORD_URL_STR;
-			URL url = new URL(requestUrl);
-			httpURLConnection = (HttpURLConnection) url.openConnection();
-			httpURLConnection.setConnectTimeout(30000);
-			httpURLConnection.setReadTimeout(30000);
-			httpURLConnection.setDoInput(true);
-
-			int errorCode = httpURLConnection.getResponseCode();
-			if (errorCode == HttpURLConnection.HTTP_OK){
-				response = convertStreamToString(httpURLConnection.getInputStream());
-			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally {
-			httpURLConnection.disconnect();
-		}
-		return response;
-	}
-
-	private static String convertStreamToString(InputStream is) throws IOException{
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is));
-		StringBuffer sb = new StringBuffer();
-		String line = null;
-		while ((line = bufferedReader.readLine()) != null){
-//			sb.append(line + "\r\n");
-			sb.append(line);
-		}
-		bufferedReader.close();
-		String response = sb.toString();
-		return response;
 	}
 
 	/**
@@ -120,10 +80,10 @@ public class NetManager {
 		return false;
 	}
 
-	public static List<TopMovieSubject> getDouBanMovieTop(String url, String start, String count, boolean isAdd){
+	public static List<TopMovieSubject> getDouBanMovieTop(String start, String count, boolean isAdd){
 		OkHttpClient client = new OkHttpClient();
 		List<TopMovieSubject> topMovieSubjects = null;
-		String urlStr = url;
+		String urlStr = Constant.DOUBAN_MOVIE_TOP250;
 		if (isAdd){
 			urlStr = urlStr + "?start=" + start + "&count=" + count;
 		}
@@ -132,7 +92,6 @@ public class NetManager {
 				.url(urlStr)
 				.build();
 
-		System.out.println("request: " + request.toString());
 		String result = "";
 		try {
 			Response response = client.newCall(request).execute();

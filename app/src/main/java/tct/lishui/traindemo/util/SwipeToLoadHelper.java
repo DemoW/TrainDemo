@@ -3,6 +3,7 @@ package tct.lishui.traindemo.util;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import tct.lishui.traindemo.adapter.WrapperAdapter;
@@ -14,6 +15,7 @@ import static android.support.v7.widget.RecyclerView.SCROLL_STATE_IDLE;
  */
 public class SwipeToLoadHelper extends RecyclerView.OnScrollListener {
 
+	private static final String TAG = "PT/SwipeToLoadHelper";
 	private RecyclerView.LayoutManager mLayoutManager;
 	private WrapperAdapter mAdapterWrapper;
 	private LoadMoreListener mListener;
@@ -35,6 +37,7 @@ public class SwipeToLoadHelper extends RecyclerView.OnScrollListener {
 
 		// 将OnScrollListener设置RecyclerView
 		recyclerView.addOnScrollListener(this);
+
 	}
 
 	@Override
@@ -66,10 +69,12 @@ public class SwipeToLoadHelper extends RecyclerView.OnScrollListener {
 				// only when the complete visible item is second last
 				if (lastCompletePosition == mLayoutManager.getItemCount() - 2) {
 					int firstCompletePosition = linearLayoutManager.findFirstCompletelyVisibleItemPosition();
-					View child = linearLayoutManager.findViewByPosition(lastCompletePosition);
+					// 获取最后一项item高度
+					View child = linearLayoutManager.findViewByPosition(lastCompletePosition + 1);
 					if (child == null)
 						return;
-					int deltaY = recyclerView.getBottom() - recyclerView.getPaddingBottom() - child.getBottom();
+//					int deltaY = recyclerView.getBottom() - recyclerView.getPaddingBottom() - child.getBottom();
+					int deltaY = child.getHeight();
 					if (deltaY > 0 && firstCompletePosition != 0) {
 						recyclerView.smoothScrollBy(0, -deltaY);
 					}
@@ -109,6 +114,9 @@ public class SwipeToLoadHelper extends RecyclerView.OnScrollListener {
 		mListener = loadMoreListener;
 	}
 
+	public void setLoadMoreFail(boolean isFinished) {
+		mAdapterWrapper.setLoadItemFailState(isFinished);
+	}
 	public interface LoadMoreListener {
 		void onLoad();
 	}

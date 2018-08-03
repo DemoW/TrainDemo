@@ -49,7 +49,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 			Glide.with(mContext).load(topMovieSubject.getImages().getMedium()).into(movieViewHolder.image_iv);
 		}
 		movieViewHolder.title_tv.setText("电影名称： " + topMovieSubject.getTitle());
-		movieViewHolder.original_title_tv.setText("本地名称： " + topMovieSubject.getOriginal_title());
+		movieViewHolder.original_title_tv.setText("当地名称： " + topMovieSubject.getOriginal_title());
 		movieViewHolder.type_tv.setText("电影类型： "+topMovieSubject.getGenres().toString());
 		movieViewHolder.average_tv.setText("电影评分： " + topMovieSubject.getRating().getAverage());
 		movieViewHolder.year_tv.setText("上映年份： " + topMovieSubject.getYear());

@@ -124,6 +124,15 @@ public class WrapperAdapter extends RecyclerView.Adapter{
 		}
 	}
 
+	public void setLoadItemFailState(boolean isFinished){
+		if (isFinished){
+			mWrapperHolder.setLoadText("已经到底了，不要再扯我啦~");
+		}else {
+			mWrapperHolder.setLoadText("获取电影信息失败，请稍后再试~");
+		}
+	}
+
+
 	class WrapperHolder extends RecyclerView.ViewHolder {
 
 		TextView mLoadTv;
