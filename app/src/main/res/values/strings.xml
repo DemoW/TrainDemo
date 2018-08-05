@@ -1,10 +1,5 @@
 <resources>
     <string name="app_name">TrainDemo</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Performance Train</string>
-    <string name="nav_header_subtitle">lishui.lin@tcl.com</string>
-    <string name="nav_header_desc">Navigation header</string>
 
     <string name="movie_title">电影名称： </string>
     <string name="movie_original_title">本地名称： </string>

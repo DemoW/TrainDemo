@@ -36,5 +36,4 @@
         android:textSize="16sp"
         android:text="正在加载数据..."/>
 
-
 </android.support.design.widget.CoordinatorLayout>
