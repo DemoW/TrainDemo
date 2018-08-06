@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 		int itemId = item.getItemId();
 		if (itemId == R.id.start_quick_time) {
 
-			Intent intent = new Intent(this, AppTimeUpActivity.class);
+				Intent intent = new Intent(this, AppTimeUpActivity.class);
 			intent.putExtra(Constant.START_TIME_FLAG, false);
 			startActivity(intent);
 
