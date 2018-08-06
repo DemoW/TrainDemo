@@ -26,7 +26,7 @@
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_sentiment_dissatisfied_white"
+        android:drawableStart="@drawable/ic_sentiment_dissatisfied_black"
         android:visibility="gone"
         android:text="获取电影信息失败，请稍后重试～"/>
 

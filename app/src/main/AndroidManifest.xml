@@ -3,7 +3,7 @@
     package="tct.lishui.traindemo">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".MyApplication"
@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true">
         <activity
-            android:name="tct.lishui.traindemo.activity.MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -22,11 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.AppTimeUpActivity"
+            android:theme="@style/AppTheme.StatusBar" />
+        <activity
+            android:name=".activity.RenderActivity"
+            android:theme="@style/AppTheme" />
 
-        <activity android:name="tct.lishui.traindemo.activity.AppTimeUpActivity"
-            android:theme="@style/AppTheme.StatusBar"/>
-
-        <activity android:name="tct.lishui.traindemo.activity.RenderActivity"
+        <activity android:name=".activity.LeakActivity"
             android:theme="@style/AppTheme"/>
 
         <provider

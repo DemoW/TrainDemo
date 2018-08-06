@@ -17,8 +17,8 @@
         app:showAsAction="ifRoom"
         android:title="Launch Heavy Activity"/>
 
-    <item android:id="@+id/launch_light_aty"
+    <item android:id="@+id/launch_leak_aty"
         android:icon="@drawable/ic_mood_black_24dp"
         app:showAsAction="ifRoom"
-        android:title="Launch Light Activity"/>
+        android:title="Launch Leak Activity"/>
 </menu>

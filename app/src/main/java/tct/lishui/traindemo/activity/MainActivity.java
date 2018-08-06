@@ -7,10 +7,6 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,7 +16,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -107,8 +102,10 @@ public class MainActivity extends AppCompatActivity {
 
 			Intent intent = new Intent(this, RenderActivity.class);
 			startActivity(intent);
-		} else if (itemId == R.id.launch_light_aty) {
+		} else if (itemId == R.id.launch_leak_aty) {
 
+			Intent intent = new Intent(this, LeakActivity.class);
+			startActivity(intent);
 		}
 		return true;
 	}
