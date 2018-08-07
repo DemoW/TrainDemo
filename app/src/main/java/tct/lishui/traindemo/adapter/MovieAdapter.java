@@ -46,7 +46,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 		TopMovieSubject topMovieSubject = datas.get(i);
 		String url = topMovieSubject.getImages().getMedium();
 		if (url != null && !url.isEmpty()) {
-			Glide.with(mContext).load(topMovieSubject.getImages().getMedium()).into(movieViewHolder.image_iv);
+			Glide.with(mContext)
+					.load(topMovieSubject.getImages().getMedium())
+					.into(movieViewHolder.image_iv);
 		}
 		movieViewHolder.title_tv.setText("电影名称： " + topMovieSubject.getTitle());
 		movieViewHolder.original_title_tv.setText("当地名称： " + topMovieSubject.getOriginal_title());

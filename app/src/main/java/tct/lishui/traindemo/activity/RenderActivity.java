@@ -127,6 +127,7 @@ public class RenderActivity extends Activity implements SwipeToLoadHelper.LoadMo
 							movieHandler.obtainMessage(LOAD_MOVIE_FAIL).sendToTarget();
 						} else {
 							topMovieSubjectList.addAll(tempData);
+							tempData.clear();
 							movieHandler.obtainMessage(LOAD_MOVIE_SUCCESS).sendToTarget();
 						}
 					}
@@ -189,10 +190,35 @@ public class RenderActivity extends Activity implements SwipeToLoadHelper.LoadMo
 
 	private void updatePageNum(){
 		currentItem = currentItem + INTERVAL_VALUE;
+		Log.d(TAG, "currentItem: " + currentItem);
 	}
+
+	private void exitTask(){
+
+		if (movieHandler != null){
+			movieHandler.removeCallbacksAndMessages(null);
+		}
+
+		if (mExecutor != null && mExecutor.isShutdown()){
+			mExecutor.shutdownNow();
+			mExecutor = null;
+		}
+
+		if (topMovieSubjectList != null){
+			topMovieSubjectList.clear();
+		}
+
+	}
+
 	@Override
 	public void onLoad() {
 		doMovieTask(1);
 		Log.d(TAG, "onLoad");
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		exitTask();
 	}
 }

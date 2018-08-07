@@ -7,7 +7,9 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -15,14 +17,22 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.lang.ref.WeakReference;
+
 import tct.lishui.traindemo.R;
 import tct.lishui.traindemo.util.Utils;
 
 public class LauncherView extends RelativeLayout {
+
+    private static final String TAG = "PT/LauncherView";
     private int mHeight;
     private int mWidth;
-    private int dp80 = Utils.dp2px(getContext(), 80);
+    private int dp80 = Utils.dp2px(getContext().getApplicationContext(), 80);
     private boolean mHasStart;
+    private static final int DELAY_SHOW_TEXT = 0;
+    private static boolean isFinishedAnim = false;
+
+    private AnimHandler animHandler;
 
     public LauncherView(Context context) {
         super(context);
@@ -100,31 +110,71 @@ public class LauncherView extends RelativeLayout {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-        mWidth = getMeasuredWidth();
-        mHeight = getMeasuredHeight();
-        initPath();
+        if (!isFinishedAnim){
+            mWidth = getMeasuredWidth();
+            mHeight = getMeasuredHeight();
+            initPath();
+        }
     }
 
-
     public void startAnim() {
+        // 判断是否已经加载过动画，避免重复加载
+        if (!isFinishedAnim) {
 //        removeAllViews();
-        init();
-        redAll.start();
-        yellowAll.start();
-        purpleAll.start();
-        blueAll.start();
+            init();
+            redAll.start();
+            yellowAll.start();
+            purpleAll.start();
+            blueAll.start();
 
-        new Handler().postDelayed(new Runnable() {
+            // 内存泄露
+/*        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 showLoadContent();
             }
-        }, 2400);
+        }, 2400);*/
+
+            // 修改方案
+            animHandler = new AnimHandler(this);
+            animHandler.sendEmptyMessageDelayed(DELAY_SHOW_TEXT, 2400);
+        }else {
+            showLoadContent();
+        }
     }
+
+    static class AnimRunnable implements Runnable {
+        @Override
+        public void run() {
+
+        }
+    }
+    static class AnimHandler extends Handler{
+        private WeakReference<LauncherView> launcherViewWeakReference =  null;
+        public AnimHandler(LauncherView launcherView){
+            launcherViewWeakReference = new WeakReference<>(launcherView);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (launcherViewWeakReference == null || launcherViewWeakReference.get() ==null)
+                return;
+
+            switch (msg.what){
+                case DELAY_SHOW_TEXT:
+                    Log.d(TAG, "show load text in content after animation finish");
+                    launcherViewWeakReference.get().showLoadContent();
+                    break;
+            }
+        }
+    }
+
 
     private void setAnimation(final ImageView target, ViewPath path1) {
         //路径
-        ObjectAnimator anim1 = ObjectAnimator.ofObject(new ViewObj(target), "fabLoc", new ViewPathEvaluator(), path1.getPoints().toArray());
+        ObjectAnimator anim1 = ObjectAnimator.ofObject(new ViewObj(target), "fabLoc",
+                new ViewPathEvaluator(), path1.getPoints().toArray());
         anim1.setInterpolator(new AccelerateDecelerateInterpolator());
         anim1.setDuration(2600);
         //组合添加缩放透明效果
@@ -199,10 +249,6 @@ public class LauncherView extends RelativeLayout {
         textView.setText("a demo for train.");
         textView.setTextSize(24);
         addView(textView);
-
-        ObjectAnimator alpha = ObjectAnimator.ofFloat(textView, View.ALPHA, 0f, 1f);
-        alpha.setDuration(800);
-        alpha.start();
     }
 
     private class AnimEndListener extends AnimatorListenerAdapter {
@@ -236,24 +282,54 @@ public class LauncherView extends RelativeLayout {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
+        Log.d(TAG, "----LauncherView onDetachedFromWindow-----");
         exitAnim();
+        isFinishedAnim = true;
     }
 
     private void exitAnim(){
         if (redAll != null && redAll.isRunning()){
             redAll.cancel();
+            redAll.removeAllListeners();
+            redAll = null;
         }
 
         if (yellowAll != null && yellowAll.isRunning()){
             yellowAll.cancel();
+            yellowAll.removeAllListeners();
+            yellowAll = null;
         }
 
         if (purpleAll != null && purpleAll.isRunning()){
             purpleAll.cancel();
+            purpleAll.removeAllListeners();
+            purpleAll = null;
         }
 
         if ((blueAll != null && blueAll.isRunning())){
             blueAll.cancel();
+            blueAll.removeAllListeners();
+            blueAll = null;
+        }
+
+        if (redPath1 != null){
+            redPath1.clearPonits();
+        }
+
+        if (purplePath1 != null){
+            purplePath1.clearPonits();
+        }
+
+        if (yellowPath1 != null){
+            yellowPath1.clearPonits();
+        }
+
+        if (bluePath1 != null){
+            bluePath1.clearPonits();
+        }
+
+        if (animHandler != null){
+            animHandler.removeCallbacksAndMessages(null);
         }
     }
 }

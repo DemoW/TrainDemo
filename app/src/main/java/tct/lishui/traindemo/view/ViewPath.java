@@ -36,5 +36,11 @@ public class ViewPath {
         return mPoints;
     }
 
+    public void clearPonits(){
+        if (mPoints != null){
+            mPoints.clear();
+        }
+    }
+
 
 }
