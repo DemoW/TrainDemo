@@ -20,8 +20,8 @@ public class Constant {
 	// douban movie top250
 	/*
 	* 豆瓣电影
-	* 请求数据{start:int, count:int}
-	* 响应数据{start：int, count:int, total:int, title:String, subjects: array}
+	* 请求数据{startAnim:int, count:int}
+	* 响应数据{startAnim：int, count:int, total:int, title:String, subjects: array}
 	* 响应方法：GET
 	* */
 	public static final String DOUBAN_MOVIE_TOP250 = "http://api.douban.com/v2/movie/top250";

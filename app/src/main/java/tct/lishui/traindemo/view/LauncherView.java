@@ -14,7 +14,6 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import tct.lishui.traindemo.R;
 import tct.lishui.traindemo.util.Utils;
@@ -107,7 +106,7 @@ public class LauncherView extends RelativeLayout {
     }
 
 
-    public void start() {
+    public void startAnim() {
 //        removeAllViews();
         init();
         redAll.start();
@@ -234,7 +233,29 @@ public class LauncherView extends RelativeLayout {
         }
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        exitAnim();
+    }
 
+    private void exitAnim(){
+        if (redAll != null && redAll.isRunning()){
+            redAll.cancel();
+        }
+
+        if (yellowAll != null && yellowAll.isRunning()){
+            yellowAll.cancel();
+        }
+
+        if (purpleAll != null && purpleAll.isRunning()){
+            purpleAll.cancel();
+        }
+
+        if ((blueAll != null && blueAll.isRunning())){
+            blueAll.cancel();
+        }
+    }
 }
 
 

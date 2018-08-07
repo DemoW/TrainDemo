@@ -85,7 +85,7 @@ public class NetManager {
 		List<TopMovieSubject> topMovieSubjects = null;
 		String urlStr = Constant.DOUBAN_MOVIE_TOP250;
 		if (isAdd){
-			urlStr = urlStr + "?start=" + start + "&count=" + count;
+			urlStr = urlStr + "?startAnim=" + start + "&count=" + count;
 		}
 
 		Request request = new Request.Builder()

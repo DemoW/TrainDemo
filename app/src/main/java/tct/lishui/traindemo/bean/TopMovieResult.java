@@ -54,7 +54,7 @@ public class TopMovieResult<T> {
 	@Override
 	public String toString() {
 		return "TopMovieResult{" +
-				"start=" + start +
+				"startAnim=" + start +
 				", count=" + count +
 				", total=" + total +
 				", title='" + title + '\'' +

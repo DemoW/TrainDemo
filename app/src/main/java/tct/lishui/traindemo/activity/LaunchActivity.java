@@ -25,7 +25,7 @@ public class LaunchActivity extends AppCompatActivity {
         getWindow().getDecorView().post(new Runnable() {
             @Override
             public void run() {
-                launcherView.start();
+                launcherView.startAnim();
             }
         });
     }

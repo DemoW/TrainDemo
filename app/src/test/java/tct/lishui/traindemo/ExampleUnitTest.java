@@ -50,7 +50,7 @@ public class ExampleUnitTest {
 	String getDouBanMovieTop(String url, String start, String count, boolean isAdd){
 		String urlStr = url;
 		if (isAdd){
-			urlStr = urlStr + "?start=" + start + "&count=" + count;
+			urlStr = urlStr + "?startAnim=" + start + "&count=" + count;
 		}
 
 		Request request = new Request.Builder()

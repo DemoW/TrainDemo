@@ -26,7 +26,7 @@ public class TopMovieRequest {
 	@Override
 	public String toString() {
 		return "TopMovieRequest{" +
-				"start=" + start +
+				"startAnim=" + start +
 				", count=" + count +
 				'}';
 	}
