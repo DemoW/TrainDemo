@@ -29,10 +29,19 @@ public class AppTimeUpActivity extends AppCompatActivity {
 		initView();
 		isBadStartWay = getIntent().getBooleanExtra(Constant.START_TIME_FLAG, false);
 		if (isBadStartWay){
+	/*		new Handler().post(new Runnable() {
+				@Override
+				public void run() {
+					ImagerResizer imagerResizer = new ImagerResizer();
+					Bitmap bitmap = imagerResizer.decodeSampledBitmapFromResource(getResources(),
+							R.drawable.alcatel_5v, imageView.getWidth(), imageView.getHeight());
+					imageView.setImageBitmap(bitmap);
+				}
+			});*/
+
 			imageView.setImageResource(R.drawable.alcatel_5v);
 			oneExcessiveWork();
 		}else {
-//			Glide.with(this).load(R.drawable.alcatel_5v).into(imageView);
 			lazyToDo();
 		}
 	}
@@ -54,6 +63,7 @@ public class AppTimeUpActivity extends AppCompatActivity {
 			@Override
 			public void run() {
 				Log.d(TAG, "lazyToDo thread 1 name: " + Thread.currentThread().getName());
+
 				Glide.with(AppTimeUpActivity.this).load(R.drawable.alcatel_5v).into(imageView);
 				// 此处不推荐直接匿名线程，只是写例子使用
 				new Thread(){
@@ -81,9 +91,4 @@ public class AppTimeUpActivity extends AppCompatActivity {
 		stringList.clear();
 	}
 
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-	}
 }
