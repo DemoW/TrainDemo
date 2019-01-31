@@ -22,7 +22,6 @@ import tct.lishui.traindemo.R;
 import tct.lishui.traindemo.adapter.MovieAdapter;
 import tct.lishui.traindemo.adapter.WrapperAdapter;
 import tct.lishui.traindemo.bean.TopMovieSubject;
-import tct.lishui.traindemo.util.Constant;
 import tct.lishui.traindemo.util.NetManager;
 import tct.lishui.traindemo.util.SwipeToLoadHelper;
 

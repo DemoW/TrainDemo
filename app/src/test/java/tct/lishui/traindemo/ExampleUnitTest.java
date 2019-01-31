@@ -1,5 +1,7 @@
 package tct.lishui.traindemo;
 
+import android.support.v4.util.ArraySet;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -13,14 +15,12 @@ import java.util.List;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import tct.lishui.testlibrary.MyClass;
 import tct.lishui.traindemo.bean.HotWord;
 import tct.lishui.traindemo.bean.Result;
 import tct.lishui.traindemo.bean.TopMovieResult;
 import tct.lishui.traindemo.bean.TopMovieSubject;
 import tct.lishui.traindemo.util.Constant;
 
-import static org.junit.Assert.*;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -30,24 +30,33 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
 
 	private OkHttpClient client = new OkHttpClient();
+
 	@Test
-	public void addition_isCorrect() {
-		assertEquals(4, 2 + 2);
+	public void testArraySet() {
+		ArraySet<String> arraySet = new ArraySet<>();
+		arraySet.add("tct.lishui.traindemo");
+		arraySet.add("com.tcl.calculator");
+		String mDozeDataStr = arraySet.toString();
+		String[] pkgNames = mDozeDataStr.substring(1, mDozeDataStr.length() - 1).split(",");
+		for (String pkgName : pkgNames) {
+			System.out.println("pkgName: " + pkgName);
+		}
 	}
 
 	@Test
-	public void testOkHttp(){
-		String response = getDouBanMovieTop(Constant.DOUBAN_MOVIE_TOP250,"240","11",true);
+	public void testOkHttp() {
+		String response = getDouBanMovieTop(Constant.DOUBAN_MOVIE_TOP250, "240", "11", true);
 		Gson gson = new Gson();
-		Type resultType = new TypeToken<TopMovieResult<List<TopMovieSubject>>>() {}.getType();
+		Type resultType = new TypeToken<TopMovieResult<List<TopMovieSubject>>>() {
+		}.getType();
 		TopMovieResult<List<TopMovieSubject>> listTopMovieResult = gson.fromJson(response, resultType);
 		List<TopMovieSubject> topMovieSubjects = listTopMovieResult.getSubjects();
-		System.out.println("response: "+topMovieSubjects.toString());
+		System.out.println("response: " + topMovieSubjects.toString());
 	}
 
-	String getDouBanMovieTop(String url, String start, String count, boolean isAdd){
+	String getDouBanMovieTop(String url, String start, String count, boolean isAdd) {
 		String urlStr = url;
-		if (isAdd){
+		if (isAdd) {
 			urlStr = urlStr + "?startAnim=" + start + "&count=" + count;
 		}
 
@@ -68,7 +77,7 @@ public class ExampleUnitTest {
 	}
 
 	@Test
-	public void testHotWord(){
+	public void testHotWord() {
 		HotWord hotWord = new HotWord();
 		hotWord.setId(1);
 		hotWord.setLink("http://www.baidu.com");
@@ -96,7 +105,8 @@ public class ExampleUnitTest {
 		String convertJson = gson.toJson(hotWordResult);
 		System.out.println("testHotWord convertJson----" + convertJson);
 
-		Type hotwordType = new TypeToken<Result<List<HotWord>>>() {}.getType();
+		Type hotwordType = new TypeToken<Result<List<HotWord>>>() {
+		}.getType();
 		Result<List<HotWord>> hotWordResultObject = gson.fromJson(convertJson, hotwordType);
 		List<HotWord> hotWordList = hotWordResultObject.getData();
 
@@ -104,7 +114,7 @@ public class ExampleUnitTest {
 	}
 
 	@Test
-	public void testJson(){
+	public void testJson() {
 		HotWord hotWord = new HotWord();
 		hotWord.setId(1);
 		hotWord.setLink("http://www.baidu.com");
@@ -114,7 +124,7 @@ public class ExampleUnitTest {
 
 		Gson gson = new Gson();
 		String jsonStr = gson.toJson(hotWord);
-		System.out.println("---"+jsonStr);
+		System.out.println("---" + jsonStr);
 
 		HotWord hotWordNew = gson.fromJson(jsonStr, HotWord.class);
 		System.out.println("----" + hotWordNew.getName());
