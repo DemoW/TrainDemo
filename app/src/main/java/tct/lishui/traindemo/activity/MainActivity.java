@@ -7,10 +7,13 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,11 +29,13 @@ import tct.lishui.traindemo.adapter.BannerAdapter;
 import tct.lishui.traindemo.bean.Banner;
 import tct.lishui.traindemo.util.Constant;
 import tct.lishui.traindemo.util.NetManager;
+import tct.lishui.traindemo.util.NotificationUtils;
 
 public class MainActivity extends AppCompatActivity {
 
 	private static final String TAG = "PT/MainActivity";
 	private TextView loading_tv;
+    private SwipeRefreshLayout swipeRefreshLayout;
 	private RecyclerView recyclerView;
 	private List<Banner> bannerList = new ArrayList<>();
 	private BannerAdapter bannerAdapter;
@@ -46,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
 				if (NetManager.isNetworkConnected(context)) {
 					if (isReceiverDo) {
 						Log.d(TAG, "-----NetworkConnected");
-						BannerDataTask bannerDataTask = new BannerDataTask(MainActivity.this);
-						bannerDataTask.execute();
+//						BannerDataTask bannerDataTask = new BannerDataTask(MainActivity.this);
+//						bannerDataTask.execute();
 					}
 				}
 			}
@@ -61,8 +66,7 @@ public class MainActivity extends AppCompatActivity {
 		// initial the view
 		initView();
 		initRecyclerView();
-		lazyToDo();
-
+//		lazyToDo();
 	}
 
 	@Override
@@ -71,7 +75,23 @@ public class MainActivity extends AppCompatActivity {
 		registerNetworkListener();
 	}
 
-	@Override
+    @Override
+    protected void onResume() {
+        super.onResume();
+        NotificationUtils.createNotificationChannel(this);
+        NotificationUtils.sendExpandableNotification(getApplicationContext());
+
+        int formatFlags = DateUtils.FORMAT_SHOW_DATE
+                | DateUtils.FORMAT_ABBREV_MONTH
+                | DateUtils.FORMAT_ABBREV_WEEKDAY
+                | DateUtils.FORMAT_SHOW_WEEKDAY;
+        String dateStr = DateUtils.formatDateTime(this, System.currentTimeMillis(), formatFlags);
+//        String dateStr2 = Settings.System.getString(getContentResolver(), Settings.System.DATE_FORMAT);
+
+        Snackbar.make(findViewById(R.id.myCoordinatorLayout), dateStr, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
 	protected void onStop() {
 		super.onStop();
 		unregisterNetworkListener();
@@ -88,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 		int itemId = item.getItemId();
 		if (itemId == R.id.start_quick_time) {
 
-				Intent intent = new Intent(this, AppTimeUpActivity.class);
+		    Intent intent = new Intent(this, AppTimeUpActivity.class);
 			intent.putExtra(Constant.START_TIME_FLAG, false);
 			startActivity(intent);
 
@@ -122,8 +142,17 @@ public class MainActivity extends AppCompatActivity {
 		Toolbar toolbar = findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
 
+        swipeRefreshLayout = findViewById(R.id.swipe_refresh);
 		recyclerView = findViewById(R.id.recycler_view);
 		loading_tv = findViewById(R.id.loading_text);
+
+		swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                Log.d("lishui", "onRefresh now");
+            }
+        });
+
 	}
 
 
@@ -147,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
 			unregisterReceiver(networkReceiver);
 		}
 	}
+
 	static class BannerDataTask extends AsyncTask<Void, Void, Object>{
 
 		private WeakReference<MainActivity> mainActivityWeakReference = null;
@@ -193,5 +223,4 @@ public class MainActivity extends AppCompatActivity {
 			}
 		}
 	}
-
 }

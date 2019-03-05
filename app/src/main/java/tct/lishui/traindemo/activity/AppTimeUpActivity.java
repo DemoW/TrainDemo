@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -49,13 +48,15 @@ public class AppTimeUpActivity extends AppCompatActivity {
 	private void initView() {
 		imageView = findViewById(R.id.toolbar_bg);
 		Toolbar toolbar = findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		//点击箭头返回
-		toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				finish();
-			}
-		});
+//		toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View view) {
+//				finish();
+//			}
+//		});
 	}
 
 	private void lazyToDo(){

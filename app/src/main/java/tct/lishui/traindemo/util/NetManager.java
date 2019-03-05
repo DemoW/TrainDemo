@@ -36,8 +36,6 @@ public class NetManager {
 			Response response = okHttpClient.newCall(request).execute();
 			if (response.isSuccessful()) {
 				result = response.body().string();
-			}else {
-				result = "";
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -49,7 +47,6 @@ public class NetManager {
 			Result<List<Banner>> bannerResultObject = gson.fromJson(result, bannerType);
 			banners = bannerResultObject.getData();
 		}
-
 		return banners;
 	}
 
