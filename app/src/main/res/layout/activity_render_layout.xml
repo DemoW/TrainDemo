@@ -30,7 +30,7 @@
         android:visibility="gone"
         android:text="获取电影信息失败，请稍后重试～"/>
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_below="@id/top_movie_title"
         android:layout_width="match_parent"

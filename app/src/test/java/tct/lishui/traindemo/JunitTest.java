@@ -1,6 +1,6 @@
 package tct.lishui.traindemo;
 
-import android.support.v4.util.ArraySet;
+import androidx.collection.ArraySet;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -27,7 +27,7 @@ import tct.lishui.traindemo.util.Constant;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-public class ExampleUnitTest {
+public class JunitTest {
 
 	private OkHttpClient client = new OkHttpClient();
 
