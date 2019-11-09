@@ -1,0 +1,14 @@
+/**
+* Shared file between builds so that they can all use the same dependencies and
+* maven repositories.
+**/
+
+def configs = [:]
+configs.applicationId = "lishui.study"
+configs.min_sdk = 24
+configs.target_sdk = 29
+configs.compile_sdk = 29
+configs.build_tool = "29.0.0"
+configs.versionCode = 19110901
+configs.versionName = "10.0.1.1109_01"
+ext.configs = configs

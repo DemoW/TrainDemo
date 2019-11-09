@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="tct.lishui.traindemo.activity.RenderActivity">
+    tools:context=".activity.RenderActivity">
 
     <TextView
         android:id="@+id/top_movie_title"

@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="tct.lishui.traindemo">
+    package="lishui.study">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -17,51 +16,25 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".activity.MainActivity"
+            android:name="lishui.study.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.AppTimeUpActivity"
+            android:name="lishui.study.activity.AppTimeUpActivity"
             android:theme="@style/AppTheme.StatusBar"
-            android:parentActivityName=".activity.MainActivity"/>
+            android:parentActivityName="lishui.study.activity.MainActivity"/>
         <activity
-            android:name=".activity.RenderActivity"
+            android:name="lishui.study.activity.RenderActivity"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activity.LeakActivity"
+            android:name="lishui.study.activity.LeakActivity"
             android:theme="@style/AppTheme" />
 
-        <activity
-            android:name=".activity.LaunchActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
-
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-        </activity>
-        <activity
-            android:name=".fragment.SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:theme="@style/AppTheme" />
-
-        <provider
-            android:name=".MyProvider"
-            android:exported="false"
-            android:authorities="tct.lishui.myprovider" />
-
-        <service
-            android:name=".service.TrainService"
-            android:exported="false"/>
     </application>
 
 </manifest>
