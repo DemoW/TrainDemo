@@ -7,32 +7,29 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
-import android.text.format.DateUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toolbar;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import lishui.study.R;
+import lishui.study.adapter.BannerAdapter;
 import lishui.study.bean.Banner;
 import lishui.study.common.log.LogUtil;
 import lishui.study.util.Constant;
 import lishui.study.util.NetManager;
 import lishui.study.util.NotificationUtils;
-import lishui.study.R;
-import lishui.study.adapter.BannerAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private static final String TAG = "MainActivity";
 	private TextView loading_tv;
@@ -68,8 +65,6 @@ public class MainActivity extends AppCompatActivity {
 		initView();
 		initRecyclerView();
 		lazyToDo();
-
-
 	}
 
 	@Override
@@ -84,14 +79,12 @@ public class MainActivity extends AppCompatActivity {
         NotificationUtils.createNotificationChannel(this);
         NotificationUtils.sendExpandableNotification(getApplicationContext());
 
-        int formatFlags = DateUtils.FORMAT_SHOW_DATE
-                | DateUtils.FORMAT_ABBREV_MONTH
-                | DateUtils.FORMAT_ABBREV_WEEKDAY
-                | DateUtils.FORMAT_SHOW_WEEKDAY;
-        String dateStr = DateUtils.formatDateTime(this, System.currentTimeMillis(), formatFlags);
-//        String dateStr2 = Settings.System.getString(getContentResolver(), Settings.System.DATE_FORMAT);
-
-        Snackbar.make(findViewById(R.id.myCoordinatorLayout), dateStr, Snackbar.LENGTH_LONG).show();
+//        int formatFlags = DateUtils.FORMAT_SHOW_DATE
+//                | DateUtils.FORMAT_ABBREV_MONTH
+//                | DateUtils.FORMAT_ABBREV_WEEKDAY
+//                | DateUtils.FORMAT_SHOW_WEEKDAY;
+//        String dateStr = DateUtils.formatDateTime(this, System.currentTimeMillis(), formatFlags);
+//        Snackbar.make(findViewById(R.id.myCoordinatorLayout), dateStr, Snackbar.LENGTH_LONG).show();
     }
 
     @Override
@@ -143,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
 	private void initView(){
 		Toolbar toolbar = findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
+		setActionBar(toolbar);
 
         swipeRefreshLayout = findViewById(R.id.swipe_refresh);
 		recyclerView = findViewById(R.id.recycler_view);

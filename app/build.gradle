@@ -12,6 +12,7 @@ android {
         versionCode configs.versionCode
         versionName configs.versionName
     }
+
     buildTypes {
         debug {
 //            minifyEnabled true  // 压缩、混淆、优化Java代码
@@ -23,6 +24,11 @@ android {
 //            shrinkResources true
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 

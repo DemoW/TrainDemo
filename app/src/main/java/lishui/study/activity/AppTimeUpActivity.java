@@ -1,22 +1,21 @@
 package lishui.study.activity;
 
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
+import lishui.study.R;
 import lishui.study.common.log.LogUtil;
 import lishui.study.util.Constant;
-import lishui.study.R;
 
-public class AppTimeUpActivity extends AppCompatActivity {
+public class AppTimeUpActivity extends BaseActivity {
 
     private static final String TAG = "AppTimeUpActivity";
     private ImageView imageView;
@@ -48,8 +47,8 @@ public class AppTimeUpActivity extends AppCompatActivity {
 	private void initView() {
 		imageView = findViewById(R.id.toolbar_bg);
 		Toolbar toolbar = findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		setActionBar(toolbar);
+        Objects.requireNonNull(getActionBar()).setDisplayHomeAsUpEnabled(true);
 		//点击箭头返回
 //		toolbar.setNavigationOnClickListener(new View.OnClickListener() {
 //			@Override

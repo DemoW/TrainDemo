@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- String representing the intent for search on the apps market. To specify a query, add
+q=<query> to the data to the intent -->
+    <string name="market_search_intent" translatable="false">market://search?c=apps</string>
+
+</resources>
