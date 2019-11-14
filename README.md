@@ -1,3 +1,3 @@
 # TrainDemo
 
-just as a performance demo
+now train for WanAndroid
