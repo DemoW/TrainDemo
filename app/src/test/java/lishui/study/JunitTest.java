@@ -12,14 +12,13 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import lishui.study.bean.WanResult;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import lishui.study.bean.HotWord;
-import lishui.study.bean.Result;
 import lishui.study.bean.TopMovieResult;
 import lishui.study.bean.TopMovieSubject;
-import lishui.study.util.Constant;
+import lishui.study.util.NetConstant;
 
 
 /**
@@ -45,7 +44,7 @@ public class JunitTest {
 
 	@Test
 	public void testOkHttp() {
-		String response = getDouBanMovieTop(Constant.DOUBAN_MOVIE_TOP250, "240", "11", true);
+		String response = getDouBanMovieTop(NetConstant.DOUBAN_MOVIE_TOP250, "240", "11", true);
 		Gson gson = new Gson();
 		Type resultType = new TypeToken<TopMovieResult<List<TopMovieSubject>>>() {
 		}.getType();
@@ -67,7 +66,7 @@ public class JunitTest {
 		System.out.println("request: " + request.toString());
 		String result = "";
 		try {
-			Response response = client.newCall(request).execute();
+			okhttp3.Response response = client.newCall(request).execute();
 			result = response.body().string();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -96,7 +95,7 @@ public class JunitTest {
 		hotWords.add(hotWord);
 		hotWords.add(hotWord2);
 
-		Result<List<HotWord>> hotWordResult = new Result<>();
+		WanResult<List<HotWord>> hotWordResult = new WanResult<>();
 		hotWordResult.setErrorCode(0);
 		hotWordResult.setErrorMsg("ok");
 		hotWordResult.setData(hotWords);
@@ -105,9 +104,9 @@ public class JunitTest {
 		String convertJson = gson.toJson(hotWordResult);
 		System.out.println("testHotWord convertJson----" + convertJson);
 
-		Type hotwordType = new TypeToken<Result<List<HotWord>>>() {
+		Type hotwordType = new TypeToken<WanResult<List<HotWord>>>() {
 		}.getType();
-		Result<List<HotWord>> hotWordResultObject = gson.fromJson(convertJson, hotwordType);
+		WanResult<List<HotWord>> hotWordResultObject = gson.fromJson(convertJson, hotwordType);
 		List<HotWord> hotWordList = hotWordResultObject.getData();
 
 		System.out.println("testHotWord convertObject----" + hotWordList.get(0).toString());

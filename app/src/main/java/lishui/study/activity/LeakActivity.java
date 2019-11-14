@@ -5,7 +5,6 @@ import android.os.Message;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 
 import java.lang.ref.WeakReference;

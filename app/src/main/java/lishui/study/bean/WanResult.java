@@ -1,9 +1,9 @@
 package lishui.study.bean;
 
 /**
- * Created by lishui.lin on 18-7-31 09:20
+ * Created by lishui.lin on 18-7-31
  */
-public class Result<T> {
+public class WanResult<T> {
 	private T data;
 	private int errorCode;
 	private String errorMsg;
@@ -34,7 +34,7 @@ public class Result<T> {
 
 	@Override
 	public String toString() {
-		return "Result{" +
+		return "WanResult{" +
 				"data=" + data +
 				", errorCode=" + errorCode +
 				", errorMsg='" + errorMsg + '\'' +

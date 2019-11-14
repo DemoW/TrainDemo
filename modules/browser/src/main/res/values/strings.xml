@@ -1,0 +1,12 @@
+<resources>
+
+    <string name="app_name">WebViewBrowser</string>
+    <string name="header_hint_text">"Search or type web address"</string>
+
+    <string name="menu_reset_web_view">Destroy and create new WebView</string>
+    <string name="menu_clear_cache">Clear cache</string>
+    <string name="menu_enable_tracing">Enable tracing</string>
+    <string name="menu_start_animation_activity">Animation test</string>
+    <string name="menu_print">Print</string>
+    <string name="menu_about">About WebViewBrowser</string>
+</resources>

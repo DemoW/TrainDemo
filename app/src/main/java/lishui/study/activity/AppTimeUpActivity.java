@@ -13,7 +13,8 @@ import java.util.Objects;
 
 import lishui.study.R;
 import lishui.study.common.log.LogUtil;
-import lishui.study.util.Constant;
+import lishui.study.common.util.Utilities;
+import lishui.study.util.NetConstant;
 
 public class AppTimeUpActivity extends BaseActivity {
 
@@ -23,9 +24,9 @@ public class AppTimeUpActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_start_way);
+		setContentView(R.layout.activity_start_app_time);
 		initView();
-        boolean isBadStartWay = getIntent().getBooleanExtra(Constant.START_TIME_FLAG, false);
+        boolean isBadStartWay = getIntent().getBooleanExtra(NetConstant.START_TIME_FLAG, false);
 		if (isBadStartWay){
 	/*		new Handler().post(new Runnable() {
 				@Override
@@ -59,23 +60,11 @@ public class AppTimeUpActivity extends BaseActivity {
 	}
 
 	private void lazyToDo(){
-		getWindow().getDecorView().post(new Runnable() {
-			@Override
-			public void run() {
-				LogUtil.d(TAG, "lazyToDo thread 1 name: " + Thread.currentThread().getName());
-
-				Glide.with(AppTimeUpActivity.this).load(R.drawable.alcatel_5v).into(imageView);
-				// 此处不推荐直接匿名线程，只是写例子使用
-				new Thread(){
-					@Override
-					public void run() {
-						super.run();
-						LogUtil.d(TAG, "lazyToDo thread 2 name: " + Thread.currentThread().getName());
-						oneExcessiveWork();
-					}
-				}.start();
-			}
-		});
+        Glide.with(AppTimeUpActivity.this).load(R.drawable.alcatel_5v).into(imageView);
+        Utilities.THREAD_POOL_EXECUTOR.execute(()->{
+            LogUtil.d(TAG, "lazyToDo thread loading and its name: " + Thread.currentThread().getName());
+            oneExcessiveWork();
+        });
 	}
 
 	// leak work, when define a large variable and it not be released

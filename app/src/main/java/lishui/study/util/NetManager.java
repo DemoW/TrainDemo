@@ -11,11 +11,10 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import lishui.study.bean.Result;
+import lishui.study.bean.BannerInfo;
+import lishui.study.bean.WanResult;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
-import lishui.study.bean.Banner;
 import lishui.study.bean.TopMovieResult;
 import lishui.study.bean.TopMovieSubject;
 
@@ -23,28 +22,27 @@ import lishui.study.bean.TopMovieSubject;
  * Created by lishui.lin on 18-7-30 09:31
  */
 public class NetManager {
-	private static final String TAG = "PT/NetManager";
 
-	public static List<Banner> requestBanner(){
-		OkHttpClient okHttpClient = new OkHttpClient();
+	public static List<BannerInfo> requestBanner(){
+        OkHttpClient okHttpClient = new OkHttpClient();
 		Request request = new Request.Builder()
-				.url(Constant.BANNER_URL_STR)
+				.url(NetConstant.BANNER_URL_STR)
 				.build();
 
 		String result = "";
 		try {
-			Response response = okHttpClient.newCall(request).execute();
+			okhttp3.Response response = okHttpClient.newCall(request).execute();
 			if (response.isSuccessful()) {
 				result = response.body().string();
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		List<Banner> banners = null;
+		List<BannerInfo> banners = null;
 		if (!result.isEmpty()){
 			Gson gson = new Gson();
-			Type bannerType = new TypeToken<Result<List<Banner>>>() {}.getType();
-			Result<List<Banner>> bannerResultObject = gson.fromJson(result, bannerType);
+			Type bannerType = new TypeToken<WanResult<List<BannerInfo>>>() {}.getType();
+			WanResult<List<BannerInfo>> bannerResultObject = gson.fromJson(result, bannerType);
 			banners = bannerResultObject.getData();
 		}
 		return banners;
@@ -73,7 +71,7 @@ public class NetManager {
 	public static List<TopMovieSubject> getDouBanMovieTop(String start, String count, boolean isAdd){
 		OkHttpClient client = new OkHttpClient();
 		List<TopMovieSubject> topMovieSubjects = null;
-		String urlStr = Constant.DOUBAN_MOVIE_TOP250;
+		String urlStr = NetConstant.DOUBAN_MOVIE_TOP250;
 		if (isAdd){
 			urlStr = urlStr + "?start=" + start + "&count=" + count;
 		}
@@ -84,7 +82,7 @@ public class NetManager {
 
 		String result = "";
 		try {
-			Response response = client.newCall(request).execute();
+			okhttp3.Response response = client.newCall(request).execute();
 			if (response.isSuccessful()) {
 				result = response.body().string();
 			}else {

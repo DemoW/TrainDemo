@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="home_fragment_class" translatable="false">"lishui.study.fragment.HomeFragment"</string>
+    <string name="square_fragment_class" translatable="false">"lishui.study.fragment.SquareFragment"</string>
+    <string name="main_fragment_class" translatable="false">"lishui.study.fragment.MainFragment"</string>
+
+</resources>

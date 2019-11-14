@@ -3,10 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="lishui.study">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
+        android:name=".TrainApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,27 +17,46 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         tools:ignore="GoogleAppIndexingWarning">
-
         <activity
-            android:name="lishui.study.activity.MainActivity"
-            android:label="@string/app_name"
+            android:name=".activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="lishui.study.activity.AppTimeUpActivity"
-            android:theme="@style/AppTheme.StatusBar"
-            android:parentActivityName="lishui.study.activity.MainActivity"/>
-        <activity
-            android:name="lishui.study.activity.RenderActivity"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name="lishui.study.activity.LeakActivity"
-            android:theme="@style/AppTheme" />
+            android:name=".activity.BrowserActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.DeviceDefault">
+            <intent-filter>
+                <action android:name="lishui.intent.action.WebView" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <data android:scheme="https" />
+                <data android:scheme="file" />
+                <data android:scheme="content" />
+                <!-- <data android:mimeType="text/html"/> -->
+                <!-- <data android:mimeType="text/plain"/> -->
+                <!-- <data android:mimeType="application/xhtml+xml"/> -->
+                <!-- <data android:mimeType="application/vnd.wap.xhtml+xml"/> -->
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".activity.AppTimeUpActivity"
+            android:parentActivityName=".activity.MainActivity"
+            android:theme="@style/AppTheme.StatusBar" />
+        <activity
+            android:name=".activity.RenderActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.LeakActivity"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

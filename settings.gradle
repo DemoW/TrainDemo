@@ -1,2 +1,2 @@
 include ':app'
-include ':modules:common'
+include ':modules:common', ':modules:browser'

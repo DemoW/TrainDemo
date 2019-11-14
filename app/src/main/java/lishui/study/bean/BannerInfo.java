@@ -1,10 +1,10 @@
 package lishui.study.bean;
 
-public class Banner {
-    public Banner() {
+public class BannerInfo {
+    public BannerInfo() {
     }
 
-    public Banner(String desc, int id, String imagePath, int isVisible, int order, String title, int type, String url) {
+    public BannerInfo(String desc, int id, String imagePath, int isVisible, int order, String title, int type, String url) {
         this.desc = desc;
         this.id = id;
         this.imagePath = imagePath;
@@ -90,7 +90,7 @@ public class Banner {
 
     @Override
     public String toString() {
-        return "Banner{" +
+        return "BannerInfo{" +
                 "desc='" + desc + '\'' +
                 ", id=" + id +
                 ", imagePath='" + imagePath + '\'' +

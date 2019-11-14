@@ -37,6 +37,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.DeadObjectException;
@@ -60,6 +61,7 @@ import android.view.animation.Interpolator;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Locale;
 import java.util.StringTokenizer;
@@ -145,6 +147,10 @@ public final class Utilities {
     public static final Executor THREAD_POOL_EXECUTOR = new ThreadPoolExecutor(
             CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE,
             TimeUnit.SECONDS, new LinkedBlockingQueue<>());
+
+    // 并行和串行线程池
+    public static final Executor THREAD_PARALLEL_EXECUTOR = AsyncTask.THREAD_POOL_EXECUTOR;
+    public static final Executor THREAD_SERIAL_EXECUTOR = AsyncTask.SERIAL_EXECUTOR;
 
     public static boolean IS_RUNNING_IN_TEST_HARNESS =
                     ActivityManager.isRunningInTestHarness();
@@ -489,6 +495,25 @@ public final class Utilities {
     public static boolean isBinderSizeError(Exception e) {
         return e.getCause() instanceof TransactionTooLargeException
                 || e.getCause() instanceof DeadObjectException;
+    }
+
+    public static <T> T getOverrideObject(Class<T> clazz, Context context, int resId) {
+        String className = context.getString(resId);
+        if (!TextUtils.isEmpty(className)) {
+            try {
+                Class<?> cls = Class.forName(className);
+                return (T) cls.getDeclaredConstructor().newInstance();
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+                    | ClassCastException | NoSuchMethodException | InvocationTargetException e) {
+                LogUtil.e(TAG, "Bad overriden class", e);
+            }
+        }
+
+        try {
+            return clazz.newInstance();
+        } catch (InstantiationException|IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

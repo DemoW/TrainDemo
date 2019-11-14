@@ -2,23 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/start_quick_time"
-        android:icon="@drawable/ic_sentiment_satisfied_white_24dp"
+    <item android:id="@+id/start_app_time_up"
         app:showAsAction="ifRoom"
-        android:title="Start Quick Time"/>
+        android:title="App Time up"/>
 
-    <item android:id="@+id/slow_start_time"
-        android:icon="@drawable/ic_sentiment_dissatisfied_white_24dp"
+    <item android:id="@+id/start_render"
         app:showAsAction="ifRoom"
-        android:title="Start Slow Time"/>
+        android:title="App Render"/>
 
-    <item android:id="@+id/launch_heavy_aty"
-        android:icon="@drawable/ic_mood_bad_white_24dp"
+    <item android:id="@+id/start_leak"
         app:showAsAction="ifRoom"
-        android:title="Launch Heavy Activity"/>
-
-    <item android:id="@+id/launch_leak_aty"
-        android:icon="@drawable/ic_mood_white_24dp"
-        app:showAsAction="ifRoom"
-        android:title="Launch Leak Activity"/>
+        android:title="App Leak"/>
 </menu>
