@@ -5,6 +5,7 @@ buildscript {
     apply from: 'versions.gradle'
 
     repositories {
+        // maven { url "http://10.92.246.65:8081/nexus/repository/maven-public/"}
         google()
         jcenter{
             url 'http://jcenter.bintray.com'
@@ -21,6 +22,7 @@ buildscript {
 
 allprojects {
     repositories {
+        // maven { url "http://10.92.246.65:8081/nexus/repository/maven-public/"}
         google()
         // jcenter()
         jcenter{

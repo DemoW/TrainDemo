@@ -1,7 +1,2 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="lishui.study.common" >
-
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-</manifest>
+    package="lishui.study.common" />

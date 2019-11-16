@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="lishui.study">
 
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -16,9 +16,10 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity
-            android:name=".activity.HomeActivity"
+            android:name=".ui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.BrowserActivity"
+            android:name=".ui.BrowserActivity"
             android:launchMode="singleTask"
             android:theme="@android:style/Theme.DeviceDefault">
             <intent-filter>
@@ -45,18 +46,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".ui.TempActivity"
             android:label="@string/app_name" />
-        <activity
-            android:name=".activity.AppTimeUpActivity"
-            android:parentActivityName=".activity.MainActivity"
-            android:theme="@style/AppTheme.StatusBar" />
-        <activity
-            android:name=".activity.RenderActivity"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".activity.LeakActivity"
-            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

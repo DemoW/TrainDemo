@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!--launcherView color-->
     <color name="load_red">#fa007a</color>
     <color name="load_purple">#935fe7</color>

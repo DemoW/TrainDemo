@@ -32,6 +32,7 @@ import java.util.List;
 
 import lishui.study.common.util.Utilities;
 
+
 /**
  * Implementation of tonal color extraction
  **/

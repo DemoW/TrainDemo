@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/train_main"
-        android:name="lishui.study.fragment.MainFragment"
+        android:name="lishui.study.ui.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/main_fragment"/>
 

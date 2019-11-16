@@ -15,8 +15,6 @@ import lishui.study.bean.BannerInfo;
 import lishui.study.bean.WanResult;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import lishui.study.bean.TopMovieResult;
-import lishui.study.bean.TopMovieSubject;
 
 /**
  * Created by lishui.lin on 18-7-30 09:31
@@ -67,40 +65,4 @@ public class NetManager {
 		}
 		return false;
 	}
-
-	public static List<TopMovieSubject> getDouBanMovieTop(String start, String count, boolean isAdd){
-		OkHttpClient client = new OkHttpClient();
-		List<TopMovieSubject> topMovieSubjects = null;
-		String urlStr = NetConstant.DOUBAN_MOVIE_TOP250;
-		if (isAdd){
-			urlStr = urlStr + "?start=" + start + "&count=" + count;
-		}
-
-		Request request = new Request.Builder()
-				.url(urlStr)
-				.build();
-
-		String result = "";
-		try {
-			okhttp3.Response response = client.newCall(request).execute();
-			if (response.isSuccessful()) {
-				result = response.body().string();
-			}else {
-				result = "";
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		if (!result.isEmpty()){
-			Gson gson = new Gson();
-			Type resultType = new TypeToken<TopMovieResult<List<TopMovieSubject>>>() {
-			}.getType();
-			TopMovieResult<List<TopMovieSubject>> listTopMovieResult = gson.fromJson(result, resultType);
-			topMovieSubjects = listTopMovieResult.getSubjects();
-		}
-
-		return topMovieSubjects;
-	}
-
 }

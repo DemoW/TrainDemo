@@ -12,13 +12,10 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import lishui.study.bean.HotWord;
 import lishui.study.bean.WanResult;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import lishui.study.bean.HotWord;
-import lishui.study.bean.TopMovieResult;
-import lishui.study.bean.TopMovieSubject;
-import lishui.study.util.NetConstant;
 
 
 /**
@@ -40,17 +37,6 @@ public class JunitTest {
 		for (String pkgName : pkgNames) {
 			System.out.println("pkgName: " + pkgName);
 		}
-	}
-
-	@Test
-	public void testOkHttp() {
-		String response = getDouBanMovieTop(NetConstant.DOUBAN_MOVIE_TOP250, "240", "11", true);
-		Gson gson = new Gson();
-		Type resultType = new TypeToken<TopMovieResult<List<TopMovieSubject>>>() {
-		}.getType();
-		TopMovieResult<List<TopMovieSubject>> listTopMovieResult = gson.fromJson(response, resultType);
-		List<TopMovieSubject> topMovieSubjects = listTopMovieResult.getSubjects();
-		System.out.println("response: " + topMovieSubjects.toString());
 	}
 
 	String getDouBanMovieTop(String url, String start, String count, boolean isAdd) {

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/base_accent_primary</item>
+        <item name="colorAccent">@color/base_accent_primary</item>
+        <item name="colorError">@color/base_error</item>
+        <item name="android:textColorPrimary">@color/base_text_primary</item>
+        <item name="android:textColorSecondary">@color/base_text_secondary</item>
+    </style>
+</resources>

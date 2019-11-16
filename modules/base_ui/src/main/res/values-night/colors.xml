@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="base_accent_primary">#99ACD9</color>
+    <color name="base_accent_primary_disable">#454C5E</color>
+    <color name="base_accent_primary_light">#CBDEFF</color>
+    <color name="base_accent_primary_pressed">#7686B3</color>
+    <color name="base_bg_banner">#33CBDEFF</color>
+    <color name="base_bg_basic">#121212</color>
+    <color name="base_bg_button_secondary">#26CBDEFF</color>
+    <color name="base_bg_button_secondary_pressed">#1ACBDEFF</color>
+    <color name="base_bg_layout">#080808</color>
+    <color name="base_bg_toast">#333333</color>
+    <color name="base_correct_normal">#81C784</color>
+    <color name="base_divider">#0DFFFFFF</color>
+    <color name="base_error">#CF6679</color>
+    <color name="base_mask">#4D000000</color>
+    <color name="base_text_disabled">#616161</color>
+    <color name="base_text_primary">#DEDEDE</color>
+    <color name="base_text_secondary">#8A8A8A</color>
+    <color name="base_warning_normal">#FFB64C</color>
+</resources>

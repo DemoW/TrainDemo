@@ -1,8 +1,6 @@
 package lishui.study.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +43,7 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.BannerView
         if (banner != null){
             bannerViewHolder.textView.setText(banner.getTitle());
             if (banner.getImagePath().isEmpty()){
-                Glide.with(mContext).load(R.drawable.ic_main_load).into(bannerViewHolder.imageView);
+                Glide.with(mContext).load(R.drawable.ic_qiaoba_fly).into(bannerViewHolder.imageView);
             }else {
                 Glide.with(mContext).load(banner.getImagePath()).into(bannerViewHolder.imageView);
             }

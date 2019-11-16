@@ -15,17 +15,4 @@ public class NetConstant {
 
 	// banner link
 	public static final String BANNER_URL_STR = "https://www.wanandroid.com/banner/json";
-
-	// hot word link
-	public static final String HOT_WORD_URL_STR = "https://www.wanandroid.com//hotkey/json";
-
-	// douban movie top250
-	/*
-	* 豆瓣电影
-	* 请求数据{startAnim:int, count:int}
-	* 响应数据{startAnim：int, count:int, total:int, title:String, subjects: array}
-	* 响应方法：GET
-	* */
-	public static final String DOUBAN_MOVIE_TOP250 = "https://api.douban.com/v2/movie/top250";
-
 }

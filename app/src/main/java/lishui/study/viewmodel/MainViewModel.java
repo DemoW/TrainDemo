@@ -15,7 +15,7 @@ public class MainViewModel extends ViewModel {
 
     public MainViewModel() {
         mBannerLiveList = DataRepository.getInstance().getBannerData();
-        DataRepository.getInstance().getSquareData(1);
+//        DataRepository.getInstance().getSquareData(1);
     }
 
     public LiveData<List<BannerInfo>> getBannerLiveList() {

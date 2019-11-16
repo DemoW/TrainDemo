@@ -6,11 +6,12 @@ import androidx.lifecycle.MutableLiveData;
 
 import java.util.List;
 
+import lishui.study.bean.OAChapter;
+import lishui.study.bean.WanArticleResult;
 import lishui.study.http.RetrofitManager;
 import lishui.study.http.WanResultCallback;
-import lishui.study.bean.ArticleResult;
 import lishui.study.bean.BannerInfo;
-import lishui.study.bean.SquareInfo;
+import lishui.study.bean.WanArticle;
 import lishui.study.common.log.LogUtil;
 
 /**
@@ -23,7 +24,6 @@ public class DataRepository {
     private static DataRepository sInstance;
 
     private DataRepository() {
-
     }
 
     public static DataRepository getInstance() {
@@ -60,15 +60,15 @@ public class DataRepository {
     }
 
     // 获取WanAndroid的广场数据
-    public LiveData<List<SquareInfo>> getSquareData(int page) {
-        MutableLiveData<List<SquareInfo>> mutableLiveData = new MutableLiveData<>();
+    public LiveData<List<WanArticle>> getSquareData(int page) {
+        MutableLiveData<List<WanArticle>> mutableLiveData = new MutableLiveData<>();
 
         RetrofitManager.getInstance()
                 .getWanAndroidService()
                 .listSquareData(page)
-                .enqueue(new WanResultCallback<ArticleResult<List<SquareInfo>>>() {
+                .enqueue(new WanResultCallback<WanArticleResult<List<WanArticle>>>() {
                     @Override
-                    public void onResponse(ArticleResult<List<SquareInfo>> listArticleResult) {
+                    public void onResponse(WanArticleResult<List<WanArticle>> listArticleResult) {
                         if (listArticleResult != null && listArticleResult.getDatas() != null) {
                             LogUtil.d("getSquareData: " + listArticleResult.getDatas());
                             mutableLiveData.postValue(listArticleResult.getDatas());
@@ -81,6 +81,73 @@ public class DataRepository {
                     public void onFailure(Throwable throwable) {
                         mutableLiveData.postValue(null);
                         LogUtil.w(TAG, "getSquareData onFailure", throwable);
+                    }
+                });
+
+        return mutableLiveData;
+    }
+
+    // 获取公众号列表
+    public LiveData<List<OAChapter>> getChapterData() {
+        MutableLiveData<List<OAChapter>> mutableLiveData = new MutableLiveData<>();
+
+        RetrofitManager.getInstance()
+                .getWanAndroidService()
+                .listWxChapter()
+                .enqueue(new WanResultCallback<List<OAChapter>>() {
+                    @Override
+                    public void onResponse(List<OAChapter> oaChapters) {
+                        mutableLiveData.postValue(oaChapters);
+                    }
+
+                    @Override
+                    public void onFailure(Throwable throwable) {
+                        mutableLiveData.postValue(null);
+                        LogUtil.w(TAG, "getChapterData onFailure", throwable);
+                    }
+                });
+        return mutableLiveData;
+    }
+
+    // 获取某个公众号的历史数据
+    public LiveData<List<WanArticle>> updateWanArticleData(MutableLiveData<List<WanArticle>> mutableLiveData, int id, int page) {
+//        MutableLiveData<List<WanArticle>> mutableLiveData = new MutableLiveData<>();
+
+        RetrofitManager.getInstance()
+                .getWanAndroidService()
+                .listWxArticle(id, page)
+                .enqueue(new WanResultCallback<WanArticleResult<List<WanArticle>>>() {
+                    @Override
+                    public void onResponse(WanArticleResult<List<WanArticle>> listWanArticleResult) {
+                        if (listWanArticleResult != null && listWanArticleResult.getDatas() != null) {
+                            // LogUtil.d("updateWanArticleData: " + listWanArticleResult.getDatas());
+
+                            List<WanArticle> wanArticles = mutableLiveData.getValue();
+                            List<WanArticle> tempArticles = listWanArticleResult.getDatas();
+                            if (wanArticles != null && !wanArticles.isEmpty()) {
+
+                                if (tempArticles != null
+                                        && wanArticles.get(0).getChapterId() == tempArticles.get(0).getChapterId()) {
+                                    wanArticles.addAll(tempArticles);
+                                    mutableLiveData.postValue(wanArticles);
+                                } else {
+                                    mutableLiveData.postValue(tempArticles);
+                                }
+                            } else {
+                                mutableLiveData.postValue(tempArticles);
+                            }
+                        } else {
+                            mutableLiveData.postValue(null);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Throwable throwable) {
+                        List<WanArticle> wanArticles = mutableLiveData.getValue();
+                        if (wanArticles == null || wanArticles.isEmpty()) {
+                            mutableLiveData.postValue(null);
+                        }
+                        LogUtil.w(TAG, "updateWanArticleData onFailure in id: " + id + ", page: " + page, throwable);
                     }
                 });
 
