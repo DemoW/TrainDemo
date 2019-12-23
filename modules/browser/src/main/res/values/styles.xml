@@ -1,11 +1,6 @@
 <resources>
 
-    <!-- Base application theme. -->
-<!--    <style name="AppTheme" parent="Theme.AppCompat.Light">-->
-<!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
-<!--    </style>-->
-
-    <style name="AppTheme.NoActionBar">
+    <style name="BrowserTheme" parent="Theme.AppCompat.Light">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:overlapAnchor">false</item>

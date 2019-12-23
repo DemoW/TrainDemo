@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.GeolocationPermissions;
 import android.webkit.PermissionRequest;
@@ -45,11 +46,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
+import lishui.demo.base_ui.util.SystemUiController;
 import lishui.demo.browser.util.WebViewUtils;
 
 import static lishui.demo.browser.util.WebViewUtils.BROWSER_TAG;
 
-public class WebViewBrowser extends Activity implements WebViewHeader.WebHeaderCallback, PopupMenu.OnMenuItemClickListener {
+public class WebViewBrowser extends Activity
+        implements WebViewHeader.WebHeaderCallback, PopupMenu.OnMenuItemClickListener {
 
     private static final String TAG = "WebViewBrowser";
 
@@ -64,6 +67,7 @@ public class WebViewBrowser extends Activity implements WebViewHeader.WebHeaderC
     private static final int WEBVIEW_CLEAR_CACHE = 0x1002;
     private static final int WEBVIEW_PRINT = 0x1003;
     private static final int WEBVIEW_ABOUT = 0x1004;
+    private static final int WEBVIEW_EXIT = 0x1005;
 
 
     private EditText mUrlBar;
@@ -101,6 +105,13 @@ public class WebViewBrowser extends Activity implements WebViewHeader.WebHeaderC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view_browser);
+
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(Color.WHITE);
+        window.setNavigationBarColor(Color.WHITE);
+        SystemUiController systemUiController = new SystemUiController(window);
+        systemUiController.updateUiState(SystemUiController.UI_STATE_BASE_WINDOW, true);
 
         getWebViewHeader().initialize(this);
         mUrlBar = (EditText) getWebViewHeader().getUrlBar();
@@ -242,6 +253,7 @@ public class WebViewBrowser extends Activity implements WebViewHeader.WebHeaderC
         mWebView = webview;
         getContainer().addView(
                 webview, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
         // Set default home page
         getWebViewHeader().setUrlBarText(WebViewUtils.DEFAULT_HOME_PAGE_URL);
     }
@@ -277,6 +289,8 @@ public class WebViewBrowser extends Activity implements WebViewHeader.WebHeaderC
         settings.setAppCacheEnabled(true);
         settings.setDatabaseEnabled(true);
         settings.setDomStorageEnabled(true);
+        settings.setSupportZoom(true);
+        settings.setBuiltInZoomControls(true);
 
         // Default layout behavior for chrome on android.
         settings.setUseWideViewPort(true);
@@ -320,7 +334,7 @@ public class WebViewBrowser extends Activity implements WebViewHeader.WebHeaderC
         popup.getMenu().add(Menu.NONE, WEBVIEW_CLEAR_CACHE, 1, R.string.menu_clear_cache);
         popup.getMenu().add(Menu.NONE, WEBVIEW_PRINT, 2, R.string.menu_print);
         popup.getMenu().add(Menu.NONE, WEBVIEW_ABOUT, 3, R.string.menu_about);
-//        popup.inflate(R.menu.popup_menu);
+        popup.getMenu().add(Menu.NONE, WEBVIEW_EXIT, 4, R.string.menu_exit);
         popup.show();
     }
 
@@ -352,6 +366,9 @@ public class WebViewBrowser extends Activity implements WebViewHeader.WebHeaderC
             case WEBVIEW_ABOUT:
                 aboutBrowser();
                 WebViewUtils.hideKeyboard(mUrlBar);
+                return true;
+            case WEBVIEW_EXIT:
+                finish();
                 return true;
             default:
                 return false;

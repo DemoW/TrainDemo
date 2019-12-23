@@ -19,15 +19,20 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import lishui.study.R;
 import lishui.study.bean.BannerInfo;
+import lishui.study.common.image.ImageLoader;
 import lishui.study.util.Utils;
 
 public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.BannerViewHolder> {
+
     private final Context mContext;
+    private final ImageLoader mImageLoader;
     private List<BannerInfo> bannerList;
 
     public BannerAdapter(Context context, List<BannerInfo> bannerList) {
         this.mContext = context;
         this.bannerList = bannerList;
+
+        mImageLoader = ImageLoader.build(context);
     }
 
     @NonNull
@@ -42,11 +47,16 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.BannerView
         BannerInfo banner = bannerList.get(i);
         if (banner != null){
             bannerViewHolder.textView.setText(banner.getTitle());
+            final int width = bannerViewHolder.imageView.getMeasuredWidth();
+            final int height = bannerViewHolder.imageView.getMeasuredHeight();
+
             if (banner.getImagePath().isEmpty()){
                 Glide.with(mContext).load(R.drawable.ic_qiaoba_fly).into(bannerViewHolder.imageView);
             }else {
                 Glide.with(mContext).load(banner.getImagePath()).into(bannerViewHolder.imageView);
+                //mImageLoader.bindBitmap(banner.getUrl(), bannerViewHolder.imageView);
             }
+
             bannerViewHolder.itemView.setTag(banner.getUrl());
             bannerViewHolder.itemView.setOnClickListener(view -> {
                 String urlStr = (String) view.getTag();

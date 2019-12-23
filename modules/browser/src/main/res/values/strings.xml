@@ -8,4 +8,5 @@
     <string name="menu_enable_tracing">"Enable tracing"</string>
     <string name="menu_print">"Print"</string>
     <string name="menu_about">"About WebViewBrowser"</string>
+    <string name="menu_exit">"Exit"</string>
 </resources>

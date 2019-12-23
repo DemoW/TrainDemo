@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
+import java.util.regex.Matcher;
 
 import lishui.demo.browser.util.WebViewUtils;
 
@@ -85,7 +86,12 @@ public class WebViewHeader extends RelativeLayout implements TextView.OnEditorAc
 
     public void loadUrlFromUrlBar(View view) {
         String url = mUrlBar.getText().toString();
-        if (Uri.parse(url).getScheme() == null) url = "http://" + url;
+        // if (Uri.parse(url).getScheme() == null) url = "http://" + url;
+
+        Matcher m = WebViewUtils.BROWSER_URI_SCHEMA.matcher(url);
+        if (!m.matches()) {
+            url = "https://m.baidu.com/s?word="+url;
+        }
 
         setUrlBarText(url);
         setUrlFail(false);

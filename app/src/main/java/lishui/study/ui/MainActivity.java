@@ -36,8 +36,6 @@ public class MainActivity extends FragmentActivity {
     @BindView(R.id.bottom_nav_view)
     BottomNavigationView mBottomNaviView;
 
-    // private TabLayoutMediator tabLayoutMediator;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,7 +46,7 @@ public class MainActivity extends FragmentActivity {
     }
 
     private void initNaiViewAndPager2() {
-        // mViewPager2.setUserInputEnabled(false);
+        mViewPager2.setUserInputEnabled(false);
         mViewPager2.setAdapter(pagerAdapter);
         mViewPager2.registerOnPageChangeCallback(pagerCallback);
 

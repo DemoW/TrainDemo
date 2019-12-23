@@ -27,7 +27,7 @@ public class WebViewUtils {
     }
 
     public static final String DEFAULT_HOME_PAGE_URL = "https://www.baidu.com/";
-    private static final Pattern BROWSER_URI_SCHEMA = Pattern.compile(
+    public static final Pattern BROWSER_URI_SCHEMA = Pattern.compile(
             "(?i)"   // switch on case insensitive matching
                     + "("    // begin group for schema
                     + "(?:http|https|file):\\/\\/"
