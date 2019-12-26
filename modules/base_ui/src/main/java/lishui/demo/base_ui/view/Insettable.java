@@ -1,5 +1,5 @@
 /*
- * Copyright 2017, The Android Open Source Project
+ * Copyright (C) 2013 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,26 +14,15 @@
  * limitations under the License.
  */
 
-package lishui.study;
+package lishui.demo.base_ui.view;
 
-import android.app.Application;
-
-import lishui.study.common.crash.CrashHandler;
-import lishui.study.db.AppDatabase;
-
+import android.graphics.Rect;
 
 /**
- * Android Application class. Used for accessing singletons.
+ * Allows the implementing {@link View} to not draw underneath system bars.
+ * e.g., notification bar on top and home key area on the bottom.
  */
-public class TrainApp extends Application {
+public interface Insettable {
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        CrashHandler.getInstance().init(this);
-    }
-
-    public AppDatabase getDatabase() {
-        return AppDatabase.getInstance(this);
-    }
+    void setInsets(Rect insets);
 }

@@ -7,7 +7,7 @@ import android.view.View;
 /**
  * Created by lishui.lin on 19-11-15
  */
-public class Utilities {
+public class UiUtils {
 
     public static final boolean ATLEAST_Q = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q;
 

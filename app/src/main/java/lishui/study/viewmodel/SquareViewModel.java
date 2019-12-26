@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.util.Size;
 
 import androidx.lifecycle.AndroidViewModel;
@@ -14,7 +13,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import lishui.study.common.log.LogUtil;
-import lishui.study.common.util.ImageUtils;
+import lishui.study.common.util.BitmapUtils;
 import lishui.study.common.util.Utilities;
 
 public class SquareViewModel extends AndroidViewModel {
@@ -56,7 +55,7 @@ public class SquareViewModel extends AndroidViewModel {
                             id, MediaStore.Images.Thumbnails.MINI_KIND, null);
                 }
 
-                thumb = ImageUtils.rotateBitmapIfNeed(thumb, 0, 0, thumb.getWidth(), thumb.getHeight(), orientation);
+                thumb = BitmapUtils.rotateBitmapIfNeed(thumb, 0, 0, thumb.getWidth(), thumb.getHeight(), orientation);
 
                 thumbnailLiveData.postValue(thumb);
             }

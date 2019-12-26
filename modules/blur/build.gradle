@@ -8,6 +8,9 @@ android {
     defaultConfig {
         minSdkVersion configs.min_sdk
         targetSdkVersion configs.target_sdk
+
+        renderscriptTargetApi 24
+        renderscriptSupportModeEnabled true
     }
 
     buildTypes {
@@ -21,12 +24,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+    implementation project(":modules:common")
 
-    api 'androidx.appcompat:appcompat:1.1.0'
 }

@@ -25,7 +25,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
 import android.view.animation.PathInterpolator;
 
-import lishui.demo.base_ui.util.Utilities;
+import lishui.demo.base_ui.util.UiUtils;
 
 
 /**
@@ -162,7 +162,7 @@ public class Interpolators {
      */
     public static Interpolator mapToProgress(Interpolator interpolator, float lowerBound,
             float upperBound) {
-        return t -> Utilities.mapRange(interpolator.getInterpolation(t), lowerBound, upperBound);
+        return t -> UiUtils.mapRange(interpolator.getInterpolation(t), lowerBound, upperBound);
     }
 
     /**
@@ -191,8 +191,8 @@ public class Interpolators {
             int startPx = (int) (start * totalDistancePx);
             // Overshoot by about half a frame.
             float overshootBy = OVERSHOOT_FACTOR * velocityPxPerMs *
-                    Utilities.SINGLE_FRAME_MS / totalDistancePx / 2;
-            overshootBy = Utilities.boundToRange(overshootBy, 0.02f, 0.15f);
+                    UiUtils.SINGLE_FRAME_MS / totalDistancePx / 2;
+            overshootBy = UiUtils.boundToRange(overshootBy, 0.02f, 0.15f);
             end = overshootPastProgress + overshootBy;
             int endPx = (int) (end  * totalDistancePx);
             int overshootDistance = endPx - startPx;

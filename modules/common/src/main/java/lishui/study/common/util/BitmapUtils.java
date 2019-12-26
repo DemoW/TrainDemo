@@ -12,10 +12,10 @@ import java.io.IOException;
 /**
  * Created by lishui.lin on 19-11-15
  */
-public class ImageUtils {
+public class BitmapUtils {
 
-    private ImageUtils() {
-        throw new RuntimeException("ImageUtils can not be created.");
+    private BitmapUtils() {
+        throw new RuntimeException("BitmapUtils can not be created.");
     }
 
     public static int getExIfOrientation(String filepath) {
@@ -113,8 +113,7 @@ public class ImageUtils {
             final int halfWidth = width / 2;
 
             // Calculate the largest inSampleSize value that is a power of 2 and
-            // keeps both
-            // height and width larger than the requested height and width.
+            // keeps both height and width larger than the requested height and width.
             while ((halfHeight / inSampleSize) >= reqHeight
                     && (halfWidth / inSampleSize) >= reqWidth) {
                 inSampleSize *= 2;
@@ -123,4 +122,5 @@ public class ImageUtils {
 
         return inSampleSize;
     }
+
 }

@@ -30,8 +30,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import lishui.study.common.R;
+import lishui.study.common.util.BitmapUtils;
 import lishui.study.common.util.DiskLruCache;
-import lishui.study.common.util.ImageUtils;
 import lishui.study.common.util.Utilities;
 
 public class ImageLoader {
@@ -242,7 +242,7 @@ public class ImageLoader {
         if (snapShot != null) {
             FileInputStream fileInputStream = (FileInputStream)snapShot.getInputStream(DISK_CACHE_INDEX);
             FileDescriptor fileDescriptor = fileInputStream.getFD();
-            bitmap = ImageUtils.decodeFileDescriptorWithSampleSize(fileDescriptor,
+            bitmap = BitmapUtils.decodeFileDescriptorWithSampleSize(fileDescriptor,
                     reqWidth, reqHeight);
 
             if (bitmap != null) {
@@ -262,17 +262,22 @@ public class ImageLoader {
         try {
             final URL url = new URL(urlString);
             urlConnection = (HttpURLConnection) url.openConnection();
-            in = new BufferedInputStream(urlConnection.getInputStream(),
-                    IO_BUFFER_SIZE);
-            out = new BufferedOutputStream(outputStream, IO_BUFFER_SIZE);
+            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                in = new BufferedInputStream(urlConnection.getInputStream(),
+                        IO_BUFFER_SIZE);
+                out = new BufferedOutputStream(outputStream, IO_BUFFER_SIZE);
 
-            int b;
-            while ((b = in.read()) != -1) {
-                out.write(b);
+                int b;
+                while ((b = in.read()) != -1) {
+                    out.write(b);
+                }
+                return true;
+            } else {
+                Log.w(TAG, "downloadBitmap failed.");
+                return false;
             }
-            return true;
         } catch (IOException e) {
-            Log.e(TAG, "downloadBitmap failed." + e);
+            Log.e(TAG, "downloadBitmap error." + e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();

@@ -47,29 +47,19 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.BannerView
         BannerInfo banner = bannerList.get(i);
         if (banner != null){
             bannerViewHolder.textView.setText(banner.getTitle());
-            final int width = bannerViewHolder.imageView.getMeasuredWidth();
-            final int height = bannerViewHolder.imageView.getMeasuredHeight();
 
             if (banner.getImagePath().isEmpty()){
+                // BlurManager.with(mContext).blur(mContext.getResources(), R.drawable.alcatel_5v,10f, bannerViewHolder.imageView);
                 Glide.with(mContext).load(R.drawable.ic_qiaoba_fly).into(bannerViewHolder.imageView);
             }else {
                 Glide.with(mContext).load(banner.getImagePath()).into(bannerViewHolder.imageView);
-                //mImageLoader.bindBitmap(banner.getUrl(), bannerViewHolder.imageView);
+                // mImageLoader.bindBitmap(banner.getUrl(), bannerViewHolder.imageView);
             }
 
             bannerViewHolder.itemView.setTag(banner.getUrl());
             bannerViewHolder.itemView.setOnClickListener(view -> {
                 String urlStr = (String) view.getTag();
                 if (!urlStr.isEmpty()) {
-//                    Intent intent = new Intent();
-//                    intent.setAction(Utils.WEBVIEW_ACTION);
-//                    intent.addCategory(Intent.CATEGORY_APP_BROWSER);
-//                    intent.putExtra(Intent.EXTRA_TITLE, "本地浏览器");
-//                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                    Uri uri = Uri.parse(urlStr);
-//                    intent.setData(uri);
-//                    mContext.startActivity(intent);
-
                     Utils.startWebViewBrowser(mContext, urlStr);
                 } else {
                     Toast.makeText(mContext, "等待数据刷新中...", Toast.LENGTH_SHORT).show();

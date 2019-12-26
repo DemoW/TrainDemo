@@ -24,7 +24,7 @@ public class MainViewModel extends ViewModel {
 
     public void loadBannerDataIfNeed() {
 
-//        Utilities.THREAD_POOL_EXECUTOR.execute(()->{
+//        UiUtils.THREAD_POOL_EXECUTOR.execute(()->{
 //            List<BannerInfo> banners = NetManager.requestBanner();
 //            mBannerLiveList.postValue(banners);
 //        });

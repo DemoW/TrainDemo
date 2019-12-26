@@ -18,6 +18,7 @@ package lishui.study.common.util;
 
 import android.animation.ValueAnimator;
 import android.app.ActivityManager;
+import android.app.Application;
 import android.app.WallpaperManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -42,6 +43,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.DeadObjectException;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.os.PowerManager;
 import android.os.TransactionTooLargeException;
@@ -58,6 +60,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.animation.Interpolator;
+
+import androidx.annotation.NonNull;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -151,6 +155,16 @@ public final class Utilities {
     // 并行和串行线程池
     public static final Executor THREAD_PARALLEL_EXECUTOR = AsyncTask.THREAD_POOL_EXECUTOR;
     public static final Executor THREAD_SERIAL_EXECUTOR = AsyncTask.SERIAL_EXECUTOR;
+
+    // 主线程执行器
+    public static final Executor MAIN_THREAD_EXECUTOR = new Executor() {
+                private final Handler handler = new Handler(Looper.getMainLooper());
+
+                @Override
+                public void execute(@NonNull Runnable command) {
+                    handler.post(command);
+                }
+            };
 
     public static boolean IS_RUNNING_IN_TEST_HARNESS =
                     ActivityManager.isRunningInTestHarness();

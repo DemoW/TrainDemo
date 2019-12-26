@@ -26,7 +26,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 
 
-import lishui.demo.base_ui.util.Utilities;
+import lishui.demo.base_ui.util.UiUtils;
 
 import static android.view.MotionEvent.INVALID_POINTER_ID;
 
@@ -235,7 +235,7 @@ public class SwipeDetector {
     }
 
     public SwipeDetector(@NonNull Context context, @NonNull Listener l, @NonNull Direction dir) {
-        this(ViewConfiguration.get(context), l, dir, Utilities.isRtl(context.getResources()));
+        this(ViewConfiguration.get(context), l, dir, UiUtils.isRtl(context.getResources()));
     }
 
     @VisibleForTesting

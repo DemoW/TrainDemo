@@ -16,16 +16,15 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import lishui.demo.blur.view.BlurLayout;
 import lishui.study.R;
 import lishui.study.common.util.Utilities;
-import lishui.study.ui.home.HomeFragment;
 
 public class MainActivity extends FragmentActivity {
 
 
     private List<Integer> mTabFragmentList = new ArrayList<>();
     {
-//        mTabFragmentList.add(0, R.string.home_fragment_class);
         mTabFragmentList.add(0, R.string.main_fragment_class);
         mTabFragmentList.add(1, R.string.square_fragment_class);
         mTabFragmentList.add(2, R.string.official_account_fragment_class);
@@ -35,6 +34,8 @@ public class MainActivity extends FragmentActivity {
     ViewPager2 mViewPager2;
     @BindView(R.id.bottom_nav_view)
     BottomNavigationView mBottomNaviView;
+    @BindView(R.id.blur_layout)
+    BlurLayout mBlurLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,7 @@ public class MainActivity extends FragmentActivity {
         @Override
         public Fragment createFragment(int position) {
             return Utilities.getOverrideObject(
-                    HomeFragment.class, MainActivity.this, mTabFragmentList.get(position));
+                    MainFragment.class, MainActivity.this, mTabFragmentList.get(position));
         }
 
         @Override
