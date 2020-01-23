@@ -30,7 +30,6 @@ import lishui.study.viewmodel.OfficialAccountViewModel;
 
 public class OfficialAccountFragment extends Fragment {
 
-    private View mRootView;
     private Unbinder unbinder;
 
     @BindView(R.id.official_account_tab_layout)
@@ -50,10 +49,10 @@ public class OfficialAccountFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.official_account_fragment, container, false);
-        unbinder = ButterKnife.bind(this, mRootView);
+        View rootView = inflater.inflate(R.layout.official_account_fragment, container, false);
+        unbinder = ButterKnife.bind(this, rootView);
         initTabAndPager2();
-        return mRootView;
+        return rootView;
     }
 
     private void initTabAndPager2() {

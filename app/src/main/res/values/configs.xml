@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="main_fragment_class" translatable="false">"lishui.study.ui.MainFragment"</string>
     <string name="square_fragment_class" translatable="false">"lishui.study.ui.SquareFragment"</string>
     <string name="official_account_fragment_class" translatable="false">"lishui.study.ui.official_accounts.OfficialAccountFragment"</string>
-    <string name="main_fragment_class" translatable="false">"lishui.study.ui.MainFragment"</string>
 
 </resources>

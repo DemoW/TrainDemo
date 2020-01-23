@@ -37,7 +37,6 @@ public class MainFragment extends Fragment {
 
     private static final long MIN_REQUEST_INTERVAL = 60_000;
 
-    private View mRootView;
     private MainViewModel mViewModel;
     private Unbinder unbinder;
 
@@ -59,7 +58,7 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.main_fragment, container, false);
+        View mRootView = inflater.inflate(R.layout.main_fragment, container, false);
         unbinder = ButterKnife.bind(this, mRootView);
         initView();
         return mRootView;

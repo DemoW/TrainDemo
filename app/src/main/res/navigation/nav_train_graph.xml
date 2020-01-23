@@ -20,10 +20,35 @@
             xmlns:tools="http://schemas.android.com/tools"
             app:startDestination="@+id/train_main">
 
+<!--    <action android:id="@+id/nav_action_mainFragment"-->
+<!--        app:destination="@id/train_main"-->
+<!--        app:enterAnim="@anim/slide_in_right"-->
+<!--        app:exitAnim="@anim/slide_out_left"-->
+<!--        app:popEnterAnim="@anim/slide_in_left"-->
+<!--        app:popExitAnim="@anim/slide_out_right"/>-->
+
+<!--    <action android:id="@+id/nav_action_squareFragment"-->
+<!--        app:destination="@id/train_square"/>-->
+
+<!--    <action android:id="@+id/nav_action_accountFragment"-->
+<!--        app:destination="@id/train_official_account"/>-->
+
     <fragment
         android:id="@+id/train_main"
         android:name="lishui.study.ui.MainFragment"
-        android:label="MainFragment"
+        android:label="@string/menu_title_home"
         tools:layout="@layout/main_fragment"/>
+
+    <fragment
+        android:id="@+id/train_square"
+        android:name="lishui.study.ui.SquareFragment"
+        android:label="@string/menu_title_square"
+        tools:layout="@layout/square_fragment"/>
+
+    <fragment
+        android:id="@+id/train_official_account"
+        android:name="lishui.study.ui.official_accounts.OfficialAccountFragment"
+        android:label="@string/menu_title_official_account"
+        tools:layout="@layout/official_account_fragment"/>
 
 </navigation>
