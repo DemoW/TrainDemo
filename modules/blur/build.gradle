@@ -11,6 +11,24 @@ android {
 
         renderscriptTargetApi 24
         renderscriptSupportModeEnabled true
+
+        externalNativeBuild {
+            cmake{
+                cppFlags "-std=c++11"
+            }
+        }
+
+        ndk {
+            // 虚拟机使用x86系列，真机使用arm系列
+            abiFilters "arm64-v8a", "armeabi-v7a", "x86", "x86_64"
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+            version "3.10.2"
+        }
     }
 
     buildTypes {

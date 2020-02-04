@@ -31,7 +31,7 @@ public class BlurUtils {
         Canvas canvas = new Canvas(bitmap);
         window.getDecorView().draw(canvas);
 
-        bitmap = BlurManager.with(context).blurAsync(bitmap, 10f, false);
+        bitmap = BlurManager.with(context).blurSync(bitmap, 0.5f, false);
 
         return bitmap;
     }

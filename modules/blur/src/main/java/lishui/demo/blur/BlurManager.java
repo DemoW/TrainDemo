@@ -2,8 +2,6 @@ package lishui.demo.blur;
 
 import android.content.Context;
 
-import lishui.demo.blur.renderscript.RSBlurProcessor;
-
 /**
  * Created by lishui.lin on 19-12-25
  */
@@ -25,7 +23,8 @@ public class BlurManager {
     }
 
     private BlurManager(Context context) {
-        mProcessor = new RSBlurProcessor(context.getApplicationContext());
+         mProcessor = new RSBlurProcessor(context.getApplicationContext());
+//        mProcessor = new NativeBlurProcessor();
     }
 
     private BlurProcessor getRequestBlurProcessor() {

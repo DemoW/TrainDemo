@@ -6,6 +6,7 @@ buildscript {
 
     repositories {
         // maven { url "http://10.92.246.65:8081/nexus/repository/maven-public/"}
+        maven {url "http://maven.aliyun.com/nexus/content/groups/public/" }
         google()
         jcenter{
             url 'http://jcenter.bintray.com'
@@ -13,7 +14,7 @@ buildscript {
         // jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.2'
+        classpath 'com.android.tools.build:gradle:3.5.3'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -23,6 +24,7 @@ buildscript {
 allprojects {
     repositories {
         // maven { url "http://10.92.246.65:8081/nexus/repository/maven-public/"}
+        maven {url "http://maven.aliyun.com/nexus/content/groups/public/" }
         google()
         // jcenter()
         jcenter{

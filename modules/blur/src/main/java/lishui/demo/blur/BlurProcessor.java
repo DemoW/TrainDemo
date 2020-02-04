@@ -24,7 +24,7 @@ public interface BlurProcessor {
      * @param canReuse resue the original bitmap
      * @return the blurred version of the image.
      */
-    Bitmap blurAsync(Bitmap original, float radius, boolean canReuse);
+    Bitmap blurSync(Bitmap original, float radius, boolean canReuse);
 
 
     default boolean isReady() {

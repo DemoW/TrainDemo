@@ -141,7 +141,7 @@ public final class Utilities {
     public static final String EXTRA_WALLPAPER_FLAVOR = "com.android.launcher3.WALLPAPER_FLAVOR";
 
     // These values are same as that in {@link AsyncTask}.
-    private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
+    public static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
     private static final int CORE_POOL_SIZE = CPU_COUNT + 1;
     private static final int MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1;
     private static final int KEEP_ALIVE = 1;

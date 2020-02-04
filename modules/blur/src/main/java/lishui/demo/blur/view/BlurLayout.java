@@ -69,13 +69,10 @@ public class BlurLayout extends FrameLayout {
             }
 
             if(bitmap == null) {
-                mActivity.getWindow().getDecorView().setForeground(null);
-//                setBackground(null);
-//                setVisibility(GONE);
+                setBackground(null);
+                setVisibility(GONE);
             } else {
-                mActivity.getWindow().getDecorView().setForeground(new BitmapDrawable(getResources(),bitmap));
-
-                //setBackground(new BitmapDrawable(getResources(),bitmap));
+                setBackground(new BitmapDrawable(getResources(),bitmap));
             }
         }
     }
