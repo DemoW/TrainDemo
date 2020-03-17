@@ -4,8 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,11 +13,10 @@ import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import lishui.study.R;
 import lishui.study.bean.BannerInfo;
 import lishui.study.common.image.ImageLoader;
+import lishui.study.databinding.ItemRecyclerBannerViewBinding;
 import lishui.study.util.Utils;
 
 public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.BannerViewHolder> {
@@ -46,13 +43,13 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.BannerView
     public void onBindViewHolder(@NonNull BannerViewHolder bannerViewHolder, int i) {
         BannerInfo banner = bannerList.get(i);
         if (banner != null){
-            bannerViewHolder.textView.setText(banner.getTitle());
+            bannerViewHolder.mBannerItemBinding.bannerName.setText(banner.getTitle());
 
             if (banner.getImagePath().isEmpty()){
                 // BlurManager.with(mContext).blur(mContext.getResources(), R.drawable.alcatel_5v,10f, bannerViewHolder.imageView);
-                Glide.with(mContext).load(R.drawable.ic_qiaoba_fly).into(bannerViewHolder.imageView);
+                Glide.with(mContext).load(R.drawable.ic_qiaoba_fly).into(bannerViewHolder.mBannerItemBinding.bannerImage);
             }else {
-                Glide.with(mContext).load(banner.getImagePath()).into(bannerViewHolder.imageView);
+                Glide.with(mContext).load(banner.getImagePath()).into(bannerViewHolder.mBannerItemBinding.bannerImage);
                 // mImageLoader.bindBitmap(banner.getUrl(), bannerViewHolder.imageView);
             }
 
@@ -81,14 +78,11 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.BannerView
 
     static class BannerViewHolder extends RecyclerView.ViewHolder{
 
-        @BindView(R.id.banner_image)
-        ImageView imageView;
-        @BindView(R.id.banner_name)
-        TextView textView;
+        ItemRecyclerBannerViewBinding mBannerItemBinding;
 
         public BannerViewHolder(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            mBannerItemBinding = ItemRecyclerBannerViewBinding.bind(itemView);
         }
     }
 }

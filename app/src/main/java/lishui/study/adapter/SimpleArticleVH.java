@@ -1,15 +1,12 @@
 package lishui.study.adapter;
 
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import lishui.study.R;
 import lishui.study.bean.WanArticle;
+import lishui.study.databinding.ItemRecyclerArticleViewBinding;
 import lishui.study.util.Utils;
 
 /**
@@ -17,18 +14,10 @@ import lishui.study.util.Utils;
  */
 public class SimpleArticleVH extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.article_title)
-    TextView titleTv;
-    @BindView(R.id.publish_time)
-    TextView publishTimeTv;
-    @BindView(R.id.super_chapter_name)
-    TextView chapterTv;
-    @BindView(R.id.author_name)
-    TextView authorTv;
-
+    ItemRecyclerArticleViewBinding mItemArticleBinding;
     public SimpleArticleVH(@NonNull View itemView) {
         super(itemView);
-        ButterKnife.bind(this, itemView);
+        mItemArticleBinding = ItemRecyclerArticleViewBinding.bind(itemView);
         itemView.setOnClickListener(v -> {
             WanArticle wanArticle = (WanArticle) itemView.getTag();
             Utils.startWebViewBrowser(itemView.getContext(), wanArticle.getLink());
@@ -37,9 +26,9 @@ public class SimpleArticleVH extends RecyclerView.ViewHolder {
 
     public void updateItemView(WanArticle wanArticle) {
         itemView.setTag(wanArticle);
-        titleTv.setText(wanArticle.getTitle());
-        publishTimeTv.setText(wanArticle.getNiceDate());
-        chapterTv.setText(wanArticle.getSuperChapterName());
-        authorTv.setText(wanArticle.getAuthor());
+        mItemArticleBinding.articleTitle.setText(wanArticle.getTitle());
+        mItemArticleBinding.publishTime.setText(wanArticle.getNiceDate());
+        mItemArticleBinding.superChapterName.setText(wanArticle.getSuperChapterName());
+        mItemArticleBinding.authorName.setText(wanArticle.getAuthor());
     }
 }

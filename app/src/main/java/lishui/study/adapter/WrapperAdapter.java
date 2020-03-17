@@ -1,9 +1,10 @@
 package lishui.study.adapter;
 
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import lishui.study.R;
 
