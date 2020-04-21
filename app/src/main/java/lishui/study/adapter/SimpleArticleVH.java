@@ -3,6 +3,7 @@ package lishui.study.adapter;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import lishui.study.bean.WanArticle;
@@ -14,10 +15,10 @@ import lishui.study.util.Utils;
  */
 public class SimpleArticleVH extends RecyclerView.ViewHolder {
 
-    ItemRecyclerArticleViewBinding mItemArticleBinding;
+    private ItemRecyclerArticleViewBinding mItemArticleBinding;
     public SimpleArticleVH(@NonNull View itemView) {
         super(itemView);
-        mItemArticleBinding = ItemRecyclerArticleViewBinding.bind(itemView);
+        mItemArticleBinding = DataBindingUtil.bind(itemView);
         itemView.setOnClickListener(v -> {
             WanArticle wanArticle = (WanArticle) itemView.getTag();
             Utils.startWebViewBrowser(itemView.getContext(), wanArticle.getLink());

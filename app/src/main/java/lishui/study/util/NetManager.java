@@ -13,6 +13,7 @@ import java.util.List;
 
 import lishui.study.bean.BannerInfo;
 import lishui.study.bean.WanResult;
+import lishui.study.http.NetConstant;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
@@ -42,7 +43,8 @@ public class NetManager {
 			Type bannerType = new TypeToken<WanResult<List<BannerInfo>>>() {}.getType();
 			WanResult<List<BannerInfo>> bannerResultObject = gson.fromJson(result, bannerType);
 			banners = bannerResultObject.getData();
-		}
+
+        }
 		return banners;
 	}
 

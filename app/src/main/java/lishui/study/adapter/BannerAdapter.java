@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -22,14 +23,11 @@ import lishui.study.util.Utils;
 public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.BannerViewHolder> {
 
     private final Context mContext;
-    private final ImageLoader mImageLoader;
     private List<BannerInfo> bannerList;
 
     public BannerAdapter(Context context, List<BannerInfo> bannerList) {
         this.mContext = context;
         this.bannerList = bannerList;
-
-        mImageLoader = ImageLoader.build(context);
     }
 
     @NonNull
@@ -43,15 +41,11 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.BannerView
     public void onBindViewHolder(@NonNull BannerViewHolder bannerViewHolder, int i) {
         BannerInfo banner = bannerList.get(i);
         if (banner != null){
-            bannerViewHolder.mBannerItemBinding.bannerName.setText(banner.getTitle());
 
-            if (banner.getImagePath().isEmpty()){
-                // BlurManager.with(mContext).blur(mContext.getResources(), R.drawable.alcatel_5v,10f, bannerViewHolder.imageView);
-                Glide.with(mContext).load(R.drawable.ic_qiaoba_fly).into(bannerViewHolder.mBannerItemBinding.bannerImage);
-            }else {
-                Glide.with(mContext).load(banner.getImagePath()).into(bannerViewHolder.mBannerItemBinding.bannerImage);
-                // mImageLoader.bindBitmap(banner.getUrl(), bannerViewHolder.imageView);
-            }
+            Glide.with(mContext)
+                    .load(banner.getImagePath())
+                    .placeholder(R.color.base_bg_banner)
+                    .into(bannerViewHolder.mBannerItemBinding.bannerImage);
 
             bannerViewHolder.itemView.setTag(banner.getUrl());
             bannerViewHolder.itemView.setOnClickListener(view -> {
@@ -82,7 +76,7 @@ public class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.BannerView
 
         public BannerViewHolder(@NonNull View itemView) {
             super(itemView);
-            mBannerItemBinding = ItemRecyclerBannerViewBinding.bind(itemView);
+            mBannerItemBinding = DataBindingUtil.bind(itemView);
         }
     }
 }

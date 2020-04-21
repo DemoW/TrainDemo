@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">TrainDemo</string>
+
+    <string name="image_content_description">"图片描述"</string>
+    <string name="cannot_open_link">"无法打开此链接"</string>
+
+    <string name="nav_header_title">"玩安卓"</string>
+    <string name="nav_header_subtitle">"https://www.wanandroid.com/"</string>
+    <string name="nav_header_desc">"玩安卓工作室"</string>
+
+    <string name="menu_title_home">"首页"</string>
+    <string name="menu_title_square">"广场"</string>
+    <string name="menu_title_official_account">"公众号"</string>
+</resources>

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager2.widget.ViewPager2;
@@ -16,6 +17,7 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import lishui.study.R;
 import lishui.study.adapter.SimpleArticleAdapter;
 import lishui.study.adapter.SimplePagerAdapter;
 import lishui.study.adapter.TabLayoutListenerAdapter;
@@ -37,7 +39,7 @@ public class OfficialAccountFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mBinding = OfficialAccountFragmentBinding.inflate(inflater, container, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.official_account_fragment, container, false);
         initTabAndPager2();
         return mBinding.getRoot();
     }
@@ -58,11 +60,9 @@ public class OfficialAccountFragment extends Fragment {
                 }
 
                 mBinding.nestedViewPager2.setCurrentItem(tab.getPosition(), true);
-
                 mBinding.contentLoadingBar.show();
             }
         });
-
     }
 
     private ViewPager2.OnPageChangeCallback pagerCallback

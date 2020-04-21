@@ -18,7 +18,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
-            app:startDestination="@+id/train_main">
+            app:startDestination="@+id/train_home">
 
 <!--    <action android:id="@+id/nav_action_mainFragment"-->
 <!--        app:destination="@id/train_main"-->
@@ -34,10 +34,10 @@
 <!--        app:destination="@id/train_official_account"/>-->
 
     <fragment
-        android:id="@+id/train_main"
-        android:name="lishui.study.ui.MainFragment"
+        android:id="@+id/train_home"
+        android:name="lishui.study.ui.HomeFragment"
         android:label="@string/menu_title_home"
-        tools:layout="@layout/main_fragment"/>
+        tools:layout="@layout/fragment_home_layout"/>
 
     <fragment
         android:id="@+id/train_square"

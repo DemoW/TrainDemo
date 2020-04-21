@@ -4,15 +4,21 @@ package lishui.study;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
-import lishui.study.bean.OAChapter;
-import lishui.study.bean.WanArticleResult;
-import lishui.study.http.RetrofitManager;
-import lishui.study.http.WanResultCallback;
 import lishui.study.bean.BannerInfo;
+import lishui.study.bean.OAChapter;
 import lishui.study.bean.WanArticle;
+import lishui.study.bean.WanArticleResult;
 import lishui.study.common.log.LogUtil;
+import lishui.study.http.WanAndroidService;
+import lishui.study.http.WanResultCallback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
+import static lishui.study.http.NetConstant.WANANDROID_BASE_URL;
 
 /**
  * Repository handling the work with products and comments.
@@ -22,55 +28,65 @@ public class DataRepository {
     private static final String TAG = "DataRepository";
 
     private static DataRepository sInstance;
+    private WanAndroidService mWanAndroidService;
 
     private DataRepository() {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(WANANDROID_BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        mWanAndroidService = retrofit.create(WanAndroidService.class);
     }
 
     public static DataRepository getInstance() {
-        if (sInstance == null) {
-            synchronized (DataRepository.class) {
-                if (sInstance == null) {
-                    sInstance = new DataRepository();
-                }
+        if (sInstance != null) {
+            return sInstance;
+        }
+        synchronized (DataRepository.class) {
+            if (sInstance == null) {
+                sInstance = new DataRepository();
             }
         }
         return sInstance;
     }
 
+    public interface DataReceiver<T> {
+        void onDataLoaded(T data);
+    }
+
     // 获取WanAndroid的Banner轮播图数据
-    public LiveData<List<BannerInfo>> getBannerData() {
-        MutableLiveData<List<BannerInfo>> mutableLiveData = new MutableLiveData<>();
-        RetrofitManager.getInstance()
-                .getWanAndroidService()
+    public void loadBannerData(@NotNull DataReceiver<List<BannerInfo>> dataReceiver) {
+        mWanAndroidService
                 .listBanner()
                 .enqueue(new WanResultCallback<List<BannerInfo>>() {
                     @Override
                     public void onResponse(List<BannerInfo> banners) {
-                        mutableLiveData.postValue(banners);
+                        if (dataReceiver != null) {
+                            dataReceiver.onDataLoaded(banners);
+                        }
                     }
 
                     @Override
                     public void onFailure(Throwable throwable) {
-                        mutableLiveData.postValue(null);
-                        LogUtil.w(TAG, "getBannerData onFailure", throwable);
+                        if (dataReceiver != null) {
+                            dataReceiver.onDataLoaded(null);
+                        }
                     }
                 });
 
-        return mutableLiveData;
     }
 
     // 获取WanAndroid的广场数据
     public LiveData<List<WanArticle>> getSquareData(int page) {
         MutableLiveData<List<WanArticle>> mutableLiveData = new MutableLiveData<>();
 
-        RetrofitManager.getInstance()
-                .getWanAndroidService()
+        mWanAndroidService
                 .listSquareData(page)
                 .enqueue(new WanResultCallback<WanArticleResult<List<WanArticle>>>() {
                     @Override
                     public void onResponse(WanArticleResult<List<WanArticle>> listArticleResult) {
                         if (listArticleResult != null && listArticleResult.getDatas() != null) {
-                            LogUtil.d("getSquareData: " + listArticleResult.getDatas());
                             mutableLiveData.postValue(listArticleResult.getDatas());
                         } else {
                             mutableLiveData.postValue(null);
@@ -80,7 +96,6 @@ public class DataRepository {
                     @Override
                     public void onFailure(Throwable throwable) {
                         mutableLiveData.postValue(null);
-                        LogUtil.w(TAG, "getSquareData onFailure", throwable);
                     }
                 });
 
@@ -88,11 +103,10 @@ public class DataRepository {
     }
 
     // 获取公众号列表
-    public LiveData<List<OAChapter>> getChapterData() {
+    public LiveData<List<OAChapter>> loadChapterData() {
         MutableLiveData<List<OAChapter>> mutableLiveData = new MutableLiveData<>();
 
-        RetrofitManager.getInstance()
-                .getWanAndroidService()
+        mWanAndroidService
                 .listWxChapter()
                 .enqueue(new WanResultCallback<List<OAChapter>>() {
                     @Override
@@ -113,8 +127,7 @@ public class DataRepository {
     public LiveData<List<WanArticle>> updateWanArticleData(MutableLiveData<List<WanArticle>> mutableLiveData, int id, int page) {
 //        MutableLiveData<List<WanArticle>> mutableLiveData = new MutableLiveData<>();
 
-        RetrofitManager.getInstance()
-                .getWanAndroidService()
+        mWanAndroidService
                 .listWxArticle(id, page)
                 .enqueue(new WanResultCallback<WanArticleResult<List<WanArticle>>>() {
                     @Override

@@ -20,6 +20,7 @@ import android.app.Application;
 import android.os.StrictMode;
 
 import lishui.study.common.crash.CrashHandler;
+import lishui.study.config.FeatureFlags;
 import lishui.study.db.AppDatabase;
 
 /**
@@ -27,11 +28,9 @@ import lishui.study.db.AppDatabase;
  */
 public class TrainApp extends Application {
 
-    public static final boolean DEVELOPER_MODE = false;
-
     @Override
     public void onCreate() {
-        if (DEVELOPER_MODE) {
+        if (FeatureFlags.DEVELOPER_MODE) {
             StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
                     .detectDiskReads()
                     .detectDiskWrites()

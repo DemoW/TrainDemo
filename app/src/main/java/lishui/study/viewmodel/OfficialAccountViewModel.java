@@ -21,7 +21,7 @@ public class OfficialAccountViewModel extends ViewModel {
     private MutableLiveData<List<WanArticle>> articleLiveData = new MutableLiveData<>();
 
     public OfficialAccountViewModel() {
-        chapterLiveData = DataRepository.getInstance().getChapterData();
+        chapterLiveData = DataRepository.getInstance().loadChapterData();
     }
 
     public LiveData<List<OAChapter>> getChapterLiveData() {

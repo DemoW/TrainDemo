@@ -7,11 +7,13 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
 
+import lishui.study.R;
 import lishui.study.databinding.SquareFragmentBinding;
 import lishui.study.viewmodel.SquareViewModel;
 
@@ -28,7 +30,7 @@ public class SquareFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mBinding = SquareFragmentBinding.inflate(inflater, container, false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.square_fragment, container, false);
         return mBinding.getRoot();
     }
 
@@ -37,11 +39,7 @@ public class SquareFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(SquareViewModel.class);
         subscribeToViewModel(mViewModel);
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
         mViewModel.loadThumbnailBitmap();
     }
 

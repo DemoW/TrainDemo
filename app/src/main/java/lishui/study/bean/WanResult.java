@@ -1,9 +1,12 @@
 package lishui.study.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by lishui.lin on 18-7-31
  */
 public class WanResult<T> {
+    @SerializedName("data")
 	private T data;
 	private int errorCode;
 	private String errorMsg;

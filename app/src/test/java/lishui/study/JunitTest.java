@@ -90,8 +90,7 @@ public class JunitTest {
 		String convertJson = gson.toJson(hotWordResult);
 		System.out.println("testHotWord convertJson----" + convertJson);
 
-		Type hotwordType = new TypeToken<WanResult<List<HotWord>>>() {
-		}.getType();
+		Type hotwordType = new TypeToken<WanResult<List<HotWord>>>() {}.getType();
 		WanResult<List<HotWord>> hotWordResultObject = gson.fromJson(convertJson, hotwordType);
 		List<HotWord> hotWordList = hotWordResultObject.getData();
 
