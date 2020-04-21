@@ -1,3 +1,3 @@
 # TrainDemo
 
-now train for WanAndroid
+train for Android
