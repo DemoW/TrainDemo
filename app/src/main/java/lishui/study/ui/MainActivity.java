@@ -5,6 +5,7 @@ import android.view.View;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -16,15 +17,25 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import lishui.study.R;
+import lishui.study.viewmodel.MainSharedViewModel;
 
 public class MainActivity extends BaseActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private MainSharedViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        initConfigs();
+        initView();
+    }
+
+    private void initConfigs() {
+        mViewModel = new ViewModelProvider(this).get(MainSharedViewModel.class);
+    }
+    private void initView() {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

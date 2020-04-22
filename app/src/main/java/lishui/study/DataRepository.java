@@ -18,7 +18,7 @@ import lishui.study.http.WanResultCallback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static lishui.study.http.NetConstant.WANANDROID_BASE_URL;
+import static lishui.study.http.NetworkConstant.WANANDROID_BASE_URL;
 
 /**
  * Repository handling the work with products and comments.

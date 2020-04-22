@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import lishui.study.bean.WanArticle;
 import lishui.study.databinding.ItemRecyclerArticleViewBinding;
-import lishui.study.util.Utils;
+import lishui.study.util.TrainUtils;
 
 /**
  * Created by lishui.lin on 19-11-15
@@ -21,7 +21,7 @@ public class SimpleArticleVH extends RecyclerView.ViewHolder {
         mItemArticleBinding = DataBindingUtil.bind(itemView);
         itemView.setOnClickListener(v -> {
             WanArticle wanArticle = (WanArticle) itemView.getTag();
-            Utils.startWebViewBrowser(itemView.getContext(), wanArticle.getLink());
+            TrainUtils.startWebViewBrowser(itemView.getContext(), wanArticle.getLink());
         });
     }
 

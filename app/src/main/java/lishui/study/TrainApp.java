@@ -19,6 +19,8 @@ package lishui.study;
 import android.app.Application;
 import android.os.StrictMode;
 
+import androidx.lifecycle.ProcessLifecycleOwner;
+
 import lishui.study.common.crash.CrashHandler;
 import lishui.study.config.FeatureFlags;
 import lishui.study.db.AppDatabase;
@@ -28,6 +30,7 @@ import lishui.study.db.AppDatabase;
  */
 public class TrainApp extends Application {
 
+    private AppLifeCycleObserver mLifeCycleObserver;
     @Override
     public void onCreate() {
         if (FeatureFlags.DEVELOPER_MODE) {
@@ -44,9 +47,21 @@ public class TrainApp extends Application {
                     .penaltyDeath()
                     .build());
         }
-        super.onCreate();
 
-        CrashHandler.getInstance().init(this);
+        super.onCreate();
+        mLifeCycleObserver = new AppLifeCycleObserver(this);
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(mLifeCycleObserver);
+
+        if (FeatureFlags.DEVELOPER_MODE) {
+            CrashHandler.getInstance().init(this);
+        }
+
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        ProcessLifecycleOwner.get().getLifecycle().removeObserver(mLifeCycleObserver);
     }
 
     public AppDatabase getDatabase() {

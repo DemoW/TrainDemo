@@ -4,26 +4,25 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
-import lishui.demo.base_ui.anim.DepthPageTransformer;
 import lishui.demo.base_ui.anim.ZoomOutPageTransformer;
 import lishui.study.R;
 import lishui.study.adapter.BannerAdapter;
-import lishui.study.bean.BannerInfo;
 import lishui.study.databinding.FragmentHomeLayoutBinding;
+import lishui.study.http.NetworkConstant;
+import lishui.study.util.TrainUtils;
 import lishui.study.viewmodel.HomeViewModel;
+import lishui.study.viewmodel.MainSharedViewModel;
 
 /**
  * Created by lishui.lin on 20-4-21
@@ -48,33 +47,38 @@ public class HomeFragment extends Fragment {
 
         mViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         subscribeToModel(mViewModel);
-        mViewModel.loadBannerDataIfNeed();
+        if (TrainUtils.isNetworkAvailable(requireContext())) {
+            mViewModel.loadBannerDataIfNeed();
+        } else if (mBannerAdapter.isBannerDataLoadContinue()) {
+            Toast.makeText(getContext(), "Network unavailable. Can not load data.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void initViews() {
         final ViewPager2 pager2 = mBinding.bannerPager;
         pager2.setOffscreenPageLimit(1);
         pager2.setPageTransformer(new ZoomOutPageTransformer());
-//        RecyclerView recyclerView = (RecyclerView) pager2.getChildAt(0);
-//        if (recyclerView != null) {
-//            int padding = getResources().getDimensionPixelOffset(R.dimen.padding_value_16dp);
-//            recyclerView.setPadding(padding, 0, padding, 0);
-//            recyclerView.setClipToPadding(false);
-//        }
-        mBannerAdapter = new BannerAdapter(getContext(), new ArrayList<>());
+        mBannerAdapter = new BannerAdapter(this, new ArrayList<>());
         pager2.setAdapter(mBannerAdapter);
     }
 
-    private void subscribeToModel(HomeViewModel mainViewModel) {
-        mainViewModel.getBannerLiveList().observe(getViewLifecycleOwner(), banners -> {
-            if (banners == null || banners.isEmpty()){
-                BannerInfo tempBanner = new BannerInfo();
-                tempBanner.setTitle("别着急，再等等啦~");
-                tempBanner.setUrl("");
-                tempBanner.setImagePath("");
-                mBannerAdapter.updateBannerData(new ArrayList<>(Collections.singletonList(tempBanner)));
-            } else {
+    private void subscribeToModel(HomeViewModel viewModel) {
+        viewModel.getBannerLiveList().observe(getViewLifecycleOwner(), banners -> {
+            if (banners != null && mBannerAdapter.isBannerDataLoadContinue()){
                 mBannerAdapter.updateBannerData(banners);
+            }
+        });
+
+        final MainSharedViewModel sharedViewModel = new ViewModelProvider(requireActivity()).get(MainSharedViewModel.class);
+        sharedViewModel.getNetworkLiveState().observe(getViewLifecycleOwner(), state -> {
+            if (NetworkConstant.NETWORK_WIFI.equals(state)) {
+                if (mBannerAdapter.isBannerDataLoadContinue()) {
+                    viewModel.loadBannerDataIfNeed();
+                }
+            } else if (NetworkConstant.NETWORK_DISABLE.equals(state)) {
+                if (mBannerAdapter.isBannerDataLoadContinue()) {
+                    Toast.makeText(getContext(), "Network unavailable. Can not load data.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

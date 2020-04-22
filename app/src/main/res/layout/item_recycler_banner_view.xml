@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="banner"
             type="lishui.study.bean.BannerInfo" />
+
     </data>
 
     <androidx.cardview.widget.CardView
@@ -19,6 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="@string/image_content_description"
+            app:imageFromUrl="@{banner.imagePath}"
+            app:goBrowserByUrl="@{banner.url}"
             android:scaleType="centerCrop" />
 
     </androidx.cardview.widget.CardView>

@@ -13,7 +13,7 @@ import java.util.List;
 
 import lishui.study.bean.BannerInfo;
 import lishui.study.bean.WanResult;
-import lishui.study.http.NetConstant;
+import lishui.study.http.NetworkConstant;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
@@ -25,7 +25,7 @@ public class NetManager {
 	public static List<BannerInfo> requestBanner(){
         OkHttpClient okHttpClient = new OkHttpClient();
 		Request request = new Request.Builder()
-				.url(NetConstant.BANNER_URL_STR)
+				.url(NetworkConstant.BANNER_URL_STR)
 				.build();
 
 		String result = "";

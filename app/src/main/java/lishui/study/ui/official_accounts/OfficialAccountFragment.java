@@ -23,7 +23,7 @@ import lishui.study.adapter.SimplePagerAdapter;
 import lishui.study.adapter.TabLayoutListenerAdapter;
 import lishui.study.bean.OAChapter;
 import lishui.study.databinding.OfficialAccountFragmentBinding;
-import lishui.study.util.Utils;
+import lishui.study.util.TrainUtils;
 import lishui.study.viewmodel.OfficialAccountViewModel;
 
 public class OfficialAccountFragment extends Fragment {
@@ -97,7 +97,7 @@ public class OfficialAccountFragment extends Fragment {
                     mBinding.officialAccountTabLayout.addTab(tab);
                 }
 
-                if (mBinding.officialAccountTabLayout.getTabCount() > Utils.MIN_TAB_COUNT_THRESHOLD) {
+                if (mBinding.officialAccountTabLayout.getTabCount() > TrainUtils.MIN_TAB_COUNT_THRESHOLD) {
                     mBinding.officialAccountTabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
                 } else {
                     mBinding.officialAccountTabLayout.setTabMode(TabLayout.MODE_FIXED);
