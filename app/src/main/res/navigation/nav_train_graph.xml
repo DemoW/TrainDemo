@@ -47,7 +47,7 @@
 
     <fragment
         android:id="@+id/train_official_account"
-        android:name="lishui.study.ui.official_accounts.OfficialAccountFragment"
+        android:name="lishui.study.ui.OfficialAccountFragment"
         android:label="@string/menu_title_official_account"
         tools:layout="@layout/official_account_fragment"/>
 

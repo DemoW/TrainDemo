@@ -8,16 +8,16 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.bumptech.glide.Glide;
 
 import lishui.study.R;
+import lishui.study.common.BaseFragment;
 import lishui.study.databinding.SquareFragmentBinding;
 import lishui.study.viewmodel.SquareViewModel;
 
-public class SquareFragment extends Fragment {
+public class SquareFragment extends BaseFragment {
 
     private SquareFragmentBinding mBinding;
 

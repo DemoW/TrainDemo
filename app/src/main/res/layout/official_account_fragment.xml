@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/base_bg_basic"
-        tools:context=".ui.official_accounts.OfficialAccountFragment">
+        tools:context=".ui.OfficialAccountFragment">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/official_account_tab_layout"

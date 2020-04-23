@@ -1,4 +1,4 @@
-package lishui.study.ui.official_accounts;
+package lishui.study.ui;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -22,11 +21,12 @@ import lishui.study.adapter.SimpleArticleAdapter;
 import lishui.study.adapter.SimplePagerAdapter;
 import lishui.study.adapter.TabLayoutListenerAdapter;
 import lishui.study.bean.OAChapter;
+import lishui.study.common.BaseFragment;
 import lishui.study.databinding.OfficialAccountFragmentBinding;
 import lishui.study.util.TrainUtils;
 import lishui.study.viewmodel.OfficialAccountViewModel;
 
-public class OfficialAccountFragment extends Fragment {
+public class OfficialAccountFragment extends BaseFragment {
 
     private OfficialAccountFragmentBinding mBinding;
     private OfficialAccountViewModel mViewModel;

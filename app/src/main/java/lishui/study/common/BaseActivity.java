@@ -1,6 +1,8 @@
-package lishui.study.ui;
+package lishui.study.common;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
@@ -69,6 +71,13 @@ public abstract class BaseActivity extends AppCompatActivity {
             final Paint paint = new Paint();
             paint.setColorFilter(colorFilter);
             decorView.setLayerType(View.LAYER_TYPE_HARDWARE, paint);
+        }
+    }
+
+    public void startActivitySafely(Class<?> clazz) {
+        Intent intent = new Intent(this, clazz);
+        if (getPackageManager().resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY) != null) {
+            startActivity(intent);
         }
     }
 }

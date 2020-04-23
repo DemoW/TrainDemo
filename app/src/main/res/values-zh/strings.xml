@@ -11,4 +11,9 @@
     <string name="menu_title_home">"首页"</string>
     <string name="menu_title_square">"广场"</string>
     <string name="menu_title_official_account">"公众号"</string>
+    <string name="menu_title_search">"搜索"</string>
+
+    <string name="title_activity_settings">"设置"</string>
+    <string name="title_basic_settings">"基础设置"</string>
+
 </resources>

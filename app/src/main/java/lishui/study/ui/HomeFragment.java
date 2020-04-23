@@ -9,7 +9,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -18,6 +17,7 @@ import java.util.ArrayList;
 import lishui.demo.base_ui.anim.ZoomOutPageTransformer;
 import lishui.study.R;
 import lishui.study.adapter.BannerAdapter;
+import lishui.study.common.BaseFragment;
 import lishui.study.databinding.FragmentHomeLayoutBinding;
 import lishui.study.http.NetworkConstant;
 import lishui.study.util.TrainUtils;
@@ -27,7 +27,7 @@ import lishui.study.viewmodel.MainSharedViewModel;
 /**
  * Created by lishui.lin on 20-4-21
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends BaseFragment {
 
     private FragmentHomeLayoutBinding mBinding;
     private HomeViewModel mViewModel;
