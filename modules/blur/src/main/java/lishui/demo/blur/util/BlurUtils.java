@@ -4,12 +4,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
 
-import lishui.demo.blur.BlurManager;
+import lishui.demo.blur.BlurController;
 
 /**
  * Created by lishui.lin on 19-12-25
@@ -20,7 +19,7 @@ public class BlurUtils {
 
         WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display defaultDisplay = windowManager.getDefaultDisplay();
-        Point point=new Point();
+        Point point = new Point();
         defaultDisplay.getRealSize(point);
 
         int w = point.x;
@@ -31,7 +30,7 @@ public class BlurUtils {
         Canvas canvas = new Canvas(bitmap);
         window.getDecorView().draw(canvas);
 
-        bitmap = BlurManager.with(context).blurSync(bitmap, 0.5f, false);
+        bitmap = BlurController.get(context).blurSync(bitmap, 0.5f, false);
 
         return bitmap;
     }

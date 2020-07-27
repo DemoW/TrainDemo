@@ -48,7 +48,7 @@ public class BlurLayout extends FrameLayout {
 
         @Override
         protected Bitmap doInBackground(Integer... integers) {
-            int blurProgress = integers[0] ;
+            int blurProgress = integers[0];
 
             if (Objects.isNull(mActivity)) {
                 return null;
@@ -68,11 +68,11 @@ public class BlurLayout extends FrameLayout {
                 return;
             }
 
-            if(bitmap == null) {
+            if (bitmap == null) {
                 setBackground(null);
                 setVisibility(GONE);
             } else {
-                setBackground(new BitmapDrawable(getResources(),bitmap));
+                setBackground(new BitmapDrawable(getResources(), bitmap));
             }
         }
     }

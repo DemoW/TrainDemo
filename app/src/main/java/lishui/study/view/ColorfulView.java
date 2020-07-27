@@ -28,7 +28,7 @@ public class ColorfulView extends RelativeLayout {
     private static final String TAG = "ColorfulView";
     private int mHeight;
     private int mWidth;
-    private int dp80 = Utilities.pxFromDp(80, getContext().getResources().getDisplayMetrics());
+    private int dp80 = Utilities.pxToDp(80, getContext().getResources().getDisplayMetrics());
     private static final int DELAY_SHOW_TEXT = 0;
     private static boolean isFinishedAnim = false;
     private ImageView redIv, purpleIv, yellowIv, blueIv;

@@ -9,7 +9,7 @@ import android.net.Uri;
 import android.widget.Toast;
 
 import lishui.study.R;
-import lishui.study.common.log.LogUtil;
+import lishui.study.common.log.LogUtils;
 
 /**
  * Created by lishui.lin on 19-11-12
@@ -35,7 +35,7 @@ public class TrainUtils {
                 Toast.makeText(context, R.string.activity_not_found, Toast.LENGTH_SHORT).show();
             }
         } else {
-            LogUtil.w("Utils startWebViewBrowser fail in url: " + url);
+            LogUtils.w("Utils startWebViewBrowser fail in url: " + url);
         }
     }
 

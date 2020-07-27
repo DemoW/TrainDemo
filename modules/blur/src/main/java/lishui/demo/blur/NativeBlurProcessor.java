@@ -22,8 +22,6 @@ public class NativeBlurProcessor implements BlurProcessor{
     private static native void nativeBlur(
             Bitmap bitmapOut, int radius, int threadCount, int threadIndex, int round);
 
-    private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(Utilities.CPU_COUNT);
-
     static {
         System.loadLibrary("blur-native");
     }
@@ -51,7 +49,7 @@ public class NativeBlurProcessor implements BlurProcessor{
             int width = view.getWidth();
             int height = view.getHeight();
             if (width <= 0 || height <= 0) {
-                width = height = Utilities.pxFromDp(56f, res.getDisplayMetrics());
+                width = height = Utilities.pxToDp(56f, res.getDisplayMetrics());
             }
             Bitmap original = BitmapUtils.decodeResourceWithSampleSize(
                     res, id, width, height);
@@ -91,13 +89,13 @@ public class NativeBlurProcessor implements BlurProcessor{
         }
 
         try {
-            EXECUTOR.invokeAll(horizontal);
+            Utilities.THREAD_POOL_EXECUTOR.invokeAll(horizontal);
         } catch (InterruptedException e) {
             return blurredBitmap;
         }
 
         try {
-            EXECUTOR.invokeAll(vertical);
+            Utilities.THREAD_POOL_EXECUTOR.invokeAll(vertical);
         } catch (InterruptedException e) {
             return blurredBitmap;
         }

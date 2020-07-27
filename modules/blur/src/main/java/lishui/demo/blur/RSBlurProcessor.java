@@ -12,7 +12,6 @@ import android.widget.ImageView;
 
 import java.util.Objects;
 
-import lishui.demo.blur.BlurProcessor;
 import lishui.study.common.util.BitmapUtils;
 import lishui.study.common.util.Utilities;
 
@@ -56,7 +55,7 @@ public class RSBlurProcessor implements BlurProcessor {
             int width = view.getWidth();
             int height = view.getHeight();
             if (width <= 0 || height <= 0) {
-                width = height = Utilities.pxFromDp(56f, res.getDisplayMetrics());
+                width = height = Utilities.pxToDp(56f, res.getDisplayMetrics());
             }
             Bitmap original = BitmapUtils.decodeResourceWithSampleSize(
                     res, id, width, height);

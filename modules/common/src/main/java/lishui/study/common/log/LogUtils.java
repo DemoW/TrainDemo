@@ -11,7 +11,7 @@ import lishui.study.common.BuildConfig;
  * $ adb shell setprop log.tag.ADemo D   // the lowest switch to debug level
  * $ adb shell setprop log.tag.ADemo I   // the lowest switch to info level
  */
-public class LogUtil {
+public class LogUtils {
 
     private static final String LOG_TAG = "TrainDemo";
     private static final boolean sLogInfo = true;  // Log.isLoggable(DEFAULT_TAG, Log.INFO)

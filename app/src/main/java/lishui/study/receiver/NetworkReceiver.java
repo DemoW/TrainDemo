@@ -8,7 +8,7 @@ import android.net.NetworkInfo;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import lishui.study.common.log.LogUtil;
+import lishui.study.common.log.LogUtils;
 import lishui.study.http.NetworkConstant;
 
 /**
@@ -25,15 +25,15 @@ public class NetworkReceiver extends BroadcastReceiver {
         if (networkInfo != null
                 && networkInfo.getType() == ConnectivityManager.TYPE_WIFI) {
             sendLocalBroadcast(context, NetworkConstant.NETWORK_WIFI);
-            LogUtil.d("networkInfo wifi");
+            LogUtils.d("networkInfo wifi");
         } else if (networkInfo != null) {
             sendLocalBroadcast(context, NetworkConstant.NETWORK_ANY);
-            LogUtil.d("networkInfo available");
+            LogUtils.d("networkInfo available");
 
         } else {
             sendLocalBroadcast(context, NetworkConstant.NETWORK_DISABLE);
             // there is no network connection (mobile or Wi-Fi)
-            LogUtil.d("networkInfo invalid");
+            LogUtils.d("networkInfo invalid");
         }
     }
 

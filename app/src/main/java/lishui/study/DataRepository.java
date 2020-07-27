@@ -12,7 +12,7 @@ import lishui.study.bean.BannerInfo;
 import lishui.study.bean.OAChapter;
 import lishui.study.bean.WanArticle;
 import lishui.study.bean.WanArticleResult;
-import lishui.study.common.log.LogUtil;
+import lishui.study.common.log.LogUtils;
 import lishui.study.http.WanAndroidService;
 import lishui.study.http.WanResultCallback;
 import retrofit2.Retrofit;
@@ -117,7 +117,7 @@ public class DataRepository {
                     @Override
                     public void onFailure(Throwable throwable) {
                         mutableLiveData.postValue(null);
-                        LogUtil.w(TAG, "getChapterData onFailure", throwable);
+                        LogUtils.w(TAG, "getChapterData onFailure", throwable);
                     }
                 });
         return mutableLiveData;
@@ -160,7 +160,7 @@ public class DataRepository {
                         if (wanArticles == null || wanArticles.isEmpty()) {
                             mutableLiveData.postValue(null);
                         }
-                        LogUtil.w(TAG, "updateWanArticleData onFailure in id: " + id + ", page: " + page, throwable);
+                        LogUtils.w(TAG, "updateWanArticleData onFailure in id: " + id + ", page: " + page, throwable);
                     }
                 });
 

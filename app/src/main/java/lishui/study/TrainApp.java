@@ -31,6 +31,7 @@ import lishui.study.db.AppDatabase;
 public class TrainApp extends Application {
 
     private AppLifeCycleObserver mLifeCycleObserver;
+
     @Override
     public void onCreate() {
         if (FeatureFlags.DEVELOPER_MODE) {

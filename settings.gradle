@@ -1,2 +1,4 @@
 include ':app'
-include ':modules:common', ':modules:browser', ':modules:base_ui', ':modules:blur'
+include ':modules:common', ':modules:browser', ':modules:base_ui'
+
+include ':modules:blur'

@@ -13,7 +13,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import lishui.study.common.log.LogUtil;
+import lishui.study.common.log.LogUtils;
 import lishui.study.common.util.BitmapUtils;
 import lishui.study.common.util.Utilities;
 
@@ -61,7 +61,7 @@ public class SquareViewModel extends AndroidViewModel {
                     thumbnailLiveData.postValue(thumb);
                 }
             } catch (Exception e) {
-                LogUtil.d("loadThumbnailBitmap error");
+                LogUtils.d("loadThumbnailBitmap error");
             }
         });
     }

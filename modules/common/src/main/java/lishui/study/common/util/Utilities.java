@@ -17,8 +17,6 @@
 package lishui.study.common.util;
 
 import android.animation.ValueAnimator;
-import android.app.ActivityManager;
-import android.app.Application;
 import android.app.WallpaperManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -32,7 +30,6 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
@@ -54,7 +51,6 @@ import android.text.TextUtils;
 import android.text.style.TtsSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.Pair;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
@@ -70,6 +66,7 @@ import java.lang.reflect.Method;
 import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -77,7 +74,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import lishui.study.common.constant.SharedPreferenceConstant;
-import lishui.study.common.log.LogUtil;
+import lishui.study.common.log.LogUtils;
 
 
 /**
@@ -92,8 +89,6 @@ public final class Utilities {
 
     private static final int[] sLoc0 = new int[2];
     private static final int[] sLoc1 = new int[2];
-    private static final Matrix sMatrix = new Matrix();
-    private static final Matrix sInverseMatrix = new Matrix();
 
     public static final boolean ATLEAST_Q = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q;
 
@@ -136,21 +131,17 @@ public final class Utilities {
                         Settings.Global.DEVELOPMENT_SETTINGS_ENABLED, 0) != 0;
     }
 
-    // An intent extra to indicate the horizontal scroll of the wallpaper.
-    public static final String EXTRA_WALLPAPER_OFFSET = "com.android.launcher3.WALLPAPER_OFFSET";
-    public static final String EXTRA_WALLPAPER_FLAVOR = "com.android.launcher3.WALLPAPER_FLAVOR";
-
     // These values are same as that in {@link AsyncTask}.
     public static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
     private static final int CORE_POOL_SIZE = CPU_COUNT + 1;
     private static final int MAXIMUM_POOL_SIZE = CPU_COUNT * 2 + 1;
-    private static final int KEEP_ALIVE = 1;
+    private static final int KEEP_ALIVE_TIME = 1;
     /**
      * An {@link Executor} to be used with async task with no limit on the queue size.
      */
-    public static final Executor THREAD_POOL_EXECUTOR = new ThreadPoolExecutor(
-            CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE,
-            TimeUnit.SECONDS, new LinkedBlockingQueue<>());
+    public static final ExecutorService THREAD_POOL_EXECUTOR = new ThreadPoolExecutor(
+            CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE_TIME,
+            TimeUnit.SECONDS, new LinkedBlockingQueue<>(50));
 
     // 并行和串行线程池
     public static final Executor THREAD_PARALLEL_EXECUTOR = AsyncTask.THREAD_POOL_EXECUTOR;
@@ -166,7 +157,7 @@ public final class Utilities {
                 }
             };
 
-    public static boolean isPropertyEnabled(String propertyName) {
+    public static boolean isLoggable(String propertyName) {
         return Log.isLoggable(propertyName, Log.VERBOSE);
     }
 
@@ -313,28 +304,6 @@ public final class Utilities {
         }
     }
 
-    /*
-     * Finds a system apk which had a broadcast receiver listening to a particular action.
-     * @param action intent action used to find the apk
-     * @return a pair of apk package name and the resources.
-     */
-    static Pair<String, Resources> findSystemApk(String action, PackageManager pm) {
-        final Intent intent = new Intent(action);
-        for (ResolveInfo info : pm.queryBroadcastReceivers(intent, 0)) {
-            if (info.activityInfo != null &&
-                    (info.activityInfo.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
-                final String packageName = info.activityInfo.packageName;
-                try {
-                    final Resources res = pm.getResourcesForApplication(packageName);
-                    return Pair.create(packageName, res);
-                } catch (NameNotFoundException e) {
-                    Log.w(TAG, "Failed to find resources for " + packageName);
-                }
-            }
-        }
-        return null;
-    }
-
     /**
      * Trims the string, removing all whitespace at the beginning and end of the string.
      * Non-breaking whitespaces are also removed.
@@ -404,12 +373,12 @@ public final class Utilities {
         return false;
     }
 
-    public static float dpiFromPx(int size, DisplayMetrics metrics){
+    public static float dpiToPx(int size, DisplayMetrics metrics){
         float densityRatio = (float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT;
         return (size / densityRatio);
     }
 
-    public static int pxFromDp(float size, DisplayMetrics metrics) {
+    public static int pxToDp(float size, DisplayMetrics metrics) {
         return (int) Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 size, metrics));
     }
@@ -493,7 +462,7 @@ public final class Utilities {
             try {
                 c.close();
             } catch (IOException e) {
-                LogUtil.e(TAG, "Error closing", e);
+                LogUtils.e(TAG, "Error closing", e);
 
             }
         }
@@ -512,7 +481,7 @@ public final class Utilities {
                 return (T) cls.getDeclaredConstructor().newInstance();
             } catch (ClassNotFoundException | InstantiationException | IllegalAccessException
                     | ClassCastException | NoSuchMethodException | InvocationTargetException e) {
-                LogUtil.e(TAG, "Bad overriden class", e);
+                LogUtils.e(TAG, "Bad overriden class", e);
             }
         }
 
