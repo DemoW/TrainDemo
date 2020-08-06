@@ -1,6 +1,9 @@
 package lishui.study.ui;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -8,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -18,8 +22,14 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import lishui.study.R;
 import lishui.study.common.BaseActivity;
+import lishui.study.common.log.LogUtils;
+import lishui.study.common.permission.PermissionChecker;
 import lishui.study.viewmodel.MainSharedViewModel;
 
 public class MainActivity extends BaseActivity {
@@ -32,6 +42,8 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         initConfigs();
         initView();
+
+        new Handler().postDelayed(this::checkPermissions, 1500);
     }
 
     private void initConfigs() {
@@ -95,5 +107,59 @@ public class MainActivity extends BaseActivity {
             startActivitySafely(SearchActivity.class);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private static final int REQUEST_CODE = 1000;
+    private static final String[] sPermission = new String[]{
+            Manifest.permission.READ_EXTERNAL_STORAGE
+    };
+
+    private void checkPermissions() {
+        PermissionChecker permissionManager = new PermissionChecker();
+        permissionManager.checkPermissions(this, sPermission, new PermissionChecker.CheckResultCallback() {
+            @Override
+            public void onPermissionsGranted() {
+                LogUtils.d("checkPermissions # permissionRequestList is empty and we have its permission.");
+            }
+            @Override
+            public void onPermissionsDenied(String[] deniedPermission) {
+                LogUtils.d("checkPermissions # permissionRequestList=" + Arrays.toString(deniedPermission));
+                ActivityCompat.requestPermissions(MainActivity.this, deniedPermission, REQUEST_CODE);
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE) {
+            List<String> permissionDenyList = new ArrayList<>();
+            List<String> permissionDenyNotAskList = new ArrayList<>();
+            for (int i = 0; i < permissions.length; i++) {
+                String permission = permissions[i];
+                if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+                        permissionDenyList.add(permission);
+                    } else {
+                        permissionDenyNotAskList.add(permission);
+                    }
+                }
+            }
+
+            if (permissionDenyList.isEmpty() && permissionDenyNotAskList.isEmpty()) {
+                // has permissions
+                LogUtils.d("onRequestPermissionsResult # we have permission to do.");
+            } else {
+                if (!permissionDenyList.isEmpty()) {
+                    LogUtils.d("onRequestPermissionsResult # permissionDenyList=" + permissionDenyList.toString());
+                    String[] permissionArray = new String[permissionDenyList.size()];
+                    ActivityCompat.requestPermissions(this, permissionDenyList.toArray(permissionArray), REQUEST_CODE);
+                }
+
+                if (!permissionDenyNotAskList.isEmpty()) {
+                    LogUtils.d("onRequestPermissionsResult # permissionDenyNotAskList=" + permissionDenyNotAskList.toString());
+                }
+            }
+        }
     }
 }

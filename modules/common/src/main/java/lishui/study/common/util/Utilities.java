@@ -73,7 +73,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import lishui.study.common.constant.SharedPreferenceConstant;
+import lishui.study.common.constant.PreferenceConstant;
 import lishui.study.common.log.LogUtils;
 
 
@@ -439,12 +439,12 @@ public final class Utilities {
 
     public static SharedPreferences getPrefs(Context context) {
         return context.getSharedPreferences(
-                SharedPreferenceConstant.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE);
+                PreferenceConstant.SHARED_PREFERENCES_KEY, Context.MODE_PRIVATE);
     }
 
     public static SharedPreferences getDevicePrefs(Context context) {
         return context.getSharedPreferences(
-                SharedPreferenceConstant.DEVICE_PREFERENCES_KEY, Context.MODE_PRIVATE);
+                PreferenceConstant.DEVICE_PREFERENCES_KEY, Context.MODE_PRIVATE);
     }
 
     public static boolean areAnimationsEnabled(Context context) {

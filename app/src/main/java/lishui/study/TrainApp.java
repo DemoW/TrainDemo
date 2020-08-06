@@ -22,6 +22,7 @@ import android.os.StrictMode;
 import androidx.lifecycle.ProcessLifecycleOwner;
 
 import lishui.study.common.crash.CrashHandler;
+import lishui.study.common.util.Utilities;
 import lishui.study.config.FeatureFlags;
 import lishui.study.db.AppDatabase;
 
@@ -53,7 +54,7 @@ public class TrainApp extends Application {
         mLifeCycleObserver = new AppLifeCycleObserver(this);
         ProcessLifecycleOwner.get().getLifecycle().addObserver(mLifeCycleObserver);
 
-        if (FeatureFlags.DEVELOPER_MODE) {
+        if (Utilities.isDevelopersOptionsEnabled(this)) {
             CrashHandler.getInstance().init(this);
         }
 
