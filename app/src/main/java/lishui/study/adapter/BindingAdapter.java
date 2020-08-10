@@ -1,5 +1,6 @@
 package lishui.study.adapter;
 
+import android.graphics.Bitmap;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,6 +20,14 @@ public class BindingAdapter {
     public static void bindImageFromUrl(ImageView imageView, String url) {
         Glide.with(imageView.getContext())
                 .load(url)
+                .placeholder(R.color.base_bg_banner)
+                .into(imageView);
+    }
+
+    @androidx.databinding.BindingAdapter({"imageFromBitmap"})
+    public static void bindLiveBitmap(ImageView imageView, Bitmap bitmap) {
+        Glide.with(imageView.getContext())
+                .load(bitmap)
                 .placeholder(R.color.base_bg_banner)
                 .into(imageView);
     }

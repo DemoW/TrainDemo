@@ -6,7 +6,6 @@ import android.graphics.Bitmap
 import android.provider.MediaStore
 import android.util.Size
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +15,7 @@ import lishui.study.common.util.Utilities
 
 class SquareViewModel(val app: Application) : AndroidViewModel(app) {
 
-    private val thumbnailLiveData = MutableLiveData<Bitmap>()
+    var thumbnailLiveData = MutableLiveData<Bitmap>()
 
     fun loadThumbnailBitmap() {
         viewModelScope.launch(Dispatchers.Default) {
@@ -24,7 +23,7 @@ class SquareViewModel(val app: Application) : AndroidViewModel(app) {
         }
     }
 
-    private suspend fun getFirstThumbnail() {
+    private fun getFirstThumbnail() {
         MediaStore.Images.Media.query(
                 app.contentResolver,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI, arrayOf(MediaStore.Images.ImageColumns._ID,
@@ -33,7 +32,7 @@ class SquareViewModel(val app: Application) : AndroidViewModel(app) {
                 null,
                 null,
                 MediaStore.Images.ImageColumns.DATE_TAKEN + " DESC LIMIT 1").use { cursor ->
-            if (cursor != null && cursor.moveToNext()) {
+            if (cursor?.moveToNext() == true) {
                 val idIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.ImageColumns._ID)
                 val orientationIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.ImageColumns.ORIENTATION)
                 val id = cursor.getInt(idIndex)
@@ -53,9 +52,5 @@ class SquareViewModel(val app: Application) : AndroidViewModel(app) {
                 thumbnailLiveData.postValue(thumb)
             }
         }
-    }
-
-    fun getThumbnailLiveData(): LiveData<Bitmap> {
-        return thumbnailLiveData
     }
 }
