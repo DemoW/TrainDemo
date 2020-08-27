@@ -3,6 +3,7 @@ package lishui.study.viewmodel
 import android.app.Application
 import android.content.ContentUris
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.provider.MediaStore
 import android.util.Size
 import androidx.lifecycle.AndroidViewModel
@@ -37,19 +38,10 @@ class SquareViewModel(val app: Application) : AndroidViewModel(app) {
                 val orientationIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.ImageColumns.ORIENTATION)
                 val id = cursor.getInt(idIndex)
                 val orientation = cursor.getInt(orientationIndex)
-                var thumb: Bitmap
-                thumb = if (Utilities.ATLEAST_Q) {
-                    // get the thumb uri
-                    val thumbUri = ContentUris.withAppendedId(
-                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id.toLong())
-                    // Thumbnails.MINI_KIND and signal can not be cancelled
-                    app.contentResolver.loadThumbnail(thumbUri, Size(512, 384), null)
-                } else {
-                    MediaStore.Images.Thumbnails.getThumbnail(getApplication<Application>().contentResolver,
-                            id.toLong(), MediaStore.Images.Thumbnails.MINI_KIND, null)
-                }
-                thumb = BitmapUtils.rotateBitmapIfNeed(thumb, 0, 0, thumb.width, thumb.height, orientation)
-                thumbnailLiveData.postValue(thumb)
+//                var thumb: Bitmap = MediaStore.Images.Thumbnails.getThumbnail(
+//                        app.contentResolver, id.toLong(), MediaStore.Images.Thumbnails.MINI_KIND, BitmapFactory.Options())
+                // thumb = BitmapUtils.rotateBitmapIfNeed(thumb, 0, 0, thumb.width, thumb.height, orientation)
+                thumbnailLiveData.postValue(null)
             }
         }
     }

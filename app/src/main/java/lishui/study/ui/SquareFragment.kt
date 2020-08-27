@@ -1,6 +1,12 @@
 package lishui.study.ui
 
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.pm.ShortcutInfo
+import android.content.pm.ShortcutManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,11 +30,24 @@ class SquareFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        //mViewModel = ViewModelProvider.NewInstanceFactory().create(SquareViewModel::class.java)
-//        mViewModel = ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
-//                .create(SquareViewModel::class.java)
         mBinding.bitmapLiveData = mViewModel.thumbnailLiveData
         mBinding.lifecycleOwner = this
         mViewModel.loadThumbnailBitmap()
+
+        mBinding.firstThumbnail.setOnClickListener {
+            val shortcutManager = context?.getSystemService(Context.SHORTCUT_SERVICE) as ShortcutManager
+            if (shortcutManager.isRequestPinShortcutSupported) {
+                val pinShortcutInfo = ShortcutInfo.Builder(context, "test-shortcut").apply {
+                    val intent = Intent(context, SearchActivity::class.java)
+                    intent.action = "lishui.study.action.SEARCH"
+                    setIntent(intent)
+                    setActivity(ComponentName("lishui.study", "lishui.study.ui.MainActivity"))
+                    setShortLabel("test short label")
+                }.build()
+
+                Log.d("lishuii", "pinShortcutInfo=$pinShortcutInfo")
+                shortcutManager.requestPinShortcut(pinShortcutInfo, null)
+            }
+        }
     }
 }

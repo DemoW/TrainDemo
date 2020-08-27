@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.graphics.Bitmap"/>
+
+        <import type="android.graphics.Bitmap" />
+
         <variable
             name="bitmapLiveData"
             type="androidx.lifecycle.LiveData&lt;Bitmap&gt;" />
