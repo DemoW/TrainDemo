@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import lishui.study.R
 import lishui.study.common.BaseFragment
+import lishui.study.common.log.LogUtils
 import lishui.study.databinding.SquareFragmentBinding
 import lishui.study.viewmodel.SquareViewModel
 
@@ -41,11 +42,11 @@ class SquareFragment : BaseFragment() {
                     val intent = Intent(context, SearchActivity::class.java)
                     intent.action = "lishui.study.action.SEARCH"
                     setIntent(intent)
-                    setActivity(ComponentName("lishui.study", "lishui.study.ui.MainActivity"))
+                    setActivity(ComponentName("lishui.study", "lishui.study.ui.SearchActivity"))
                     setShortLabel("test short label")
                 }.build()
 
-                Log.d("lishuii", "pinShortcutInfo=$pinShortcutInfo")
+                LogUtils.d("lishuii", "pinShortcutInfo=$pinShortcutInfo")
                 shortcutManager.requestPinShortcut(pinShortcutInfo, null)
             }
         }

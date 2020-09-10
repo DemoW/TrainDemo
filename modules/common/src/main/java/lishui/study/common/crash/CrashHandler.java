@@ -29,7 +29,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
     private static final boolean DEBUG = true;
 
     private static final String EXTERNAL_PATH = Environment.getExternalStorageDirectory().getPath()
-            + File.separator + "demo_crash" + File.separator;
+            + File.separator + "train_demo_crash" + File.separator;
     private static final String FILE_NAME = "crash_log";
     private static final String FILE_NAME_SUFFIX = ".trace";
 

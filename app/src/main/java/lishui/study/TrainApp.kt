@@ -16,23 +16,17 @@
 package lishui.study
 
 import android.app.Application
-import android.content.Context
 import android.os.StrictMode
 import android.os.StrictMode.VmPolicy
 import androidx.lifecycle.ProcessLifecycleOwner
 import lishui.study.common.crash.CrashHandler
 import lishui.study.common.util.Utilities
 import lishui.study.config.FeatureFlags
-import lishui.study.di.DaggerAppComponent
 
 /**
  * Android Application class. Used for accessing singletons.
  */
 class TrainApp : Application() {
-
-    override fun attachBaseContext(base: Context?) {
-        super.attachBaseContext(base)
-    }
 
     override fun onCreate() {
 
@@ -56,8 +50,8 @@ class TrainApp : Application() {
     }
 
     private fun init(trainApp: TrainApp) {
-//        val lifeCycleObserver = AppLifeCycleObserver(trainApp)
-//        ProcessLifecycleOwner.get().lifecycle.addObserver(lifeCycleObserver)
+        val lifeCycleObserver = AppLifeCycleObserver(trainApp)
+        ProcessLifecycleOwner.get().lifecycle.addObserver(lifeCycleObserver)
 
         if (Utilities.isDevelopersOptionsEnabled(trainApp)) {
             CrashHandler.getInstance().init(trainApp)

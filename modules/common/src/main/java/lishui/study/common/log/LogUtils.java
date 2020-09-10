@@ -8,8 +8,8 @@ import lishui.study.common.BuildConfig;
  * Created by lishui.lin on 19-11-9
  *
  * Control the level for info and debug log as follow:
- * $ adb shell setprop log.tag.ADemo D   // the lowest switch to debug level
- * $ adb shell setprop log.tag.ADemo I   // the lowest switch to info level
+ * $ adb shell setprop log.tag.TrainDemo D   // the lowest switch to debug level
+ * $ adb shell setprop log.tag.TrainDemo I   // the lowest switch to info level
  */
 public class LogUtils {
 
@@ -37,6 +37,17 @@ public class LogUtils {
             }
         }
     }
+
+    public static void d(boolean isDebug, String... info) {
+        if (sLogDebug || isDebug) {
+            if (info.length == 2) {
+                Log.d(LOG_TAG, info[0] + " # " + info[1]);
+            } else {
+                Log.d(LOG_TAG, info[0]);
+            }
+        }
+    }
+
 
     public static void i(String... info) {
         if (sLogInfo) {

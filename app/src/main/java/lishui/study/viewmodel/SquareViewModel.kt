@@ -33,14 +33,14 @@ class SquareViewModel(val app: Application) : AndroidViewModel(app) {
                 null,
                 null,
                 MediaStore.Images.ImageColumns.DATE_TAKEN + " DESC LIMIT 1").use { cursor ->
-            if (cursor?.moveToNext() == true) {
+            if (cursor?.moveToFirst() == true) {
                 val idIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.ImageColumns._ID)
                 val orientationIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.ImageColumns.ORIENTATION)
                 val id = cursor.getInt(idIndex)
                 val orientation = cursor.getInt(orientationIndex)
-//                var thumb: Bitmap = MediaStore.Images.Thumbnails.getThumbnail(
-//                        app.contentResolver, id.toLong(), MediaStore.Images.Thumbnails.MINI_KIND, BitmapFactory.Options())
-                // thumb = BitmapUtils.rotateBitmapIfNeed(thumb, 0, 0, thumb.width, thumb.height, orientation)
+                var thumb: Bitmap = MediaStore.Images.Thumbnails.getThumbnail(
+                        app.contentResolver, id.toLong(), MediaStore.Images.Thumbnails.MINI_KIND, BitmapFactory.Options())
+                 thumb = BitmapUtils.rotateBitmapIfNeed(thumb, 0, 0, thumb.width, thumb.height, orientation)
                 thumbnailLiveData.postValue(null)
             }
         }

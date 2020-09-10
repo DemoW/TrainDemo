@@ -43,7 +43,8 @@ public class MainActivity extends BaseActivity {
         initConfigs();
         initView();
 
-        new Handler().postDelayed(this::checkPermissions, 1500);
+        // test runtime permission
+        // new Handler().postDelayed(this::checkPermissions, 1500);
     }
 
     private void initConfigs() {
@@ -119,7 +120,7 @@ public class MainActivity extends BaseActivity {
         permissionManager.checkPermissions(this, sPermission, new PermissionChecker.CheckResultCallback() {
             @Override
             public void onPermissionsGranted() {
-                LogUtils.d("checkPermissions # permissionRequestList is empty and we have its permission.");
+                LogUtils.d("checkPermissions # permissionRequestList is empty and we have all permissions");
             }
             @Override
             public void onPermissionsDenied(String[] deniedPermission) {
